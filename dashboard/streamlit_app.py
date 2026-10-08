@@ -245,7 +245,7 @@ with tab1:
                     c_left, c_right = st.columns(2)
                     with c_left:
                         st.markdown(f"**Modified Code Symbol:** `{sym.get('name')}`")
-                        st.markdown(f"**Code File:** `{sym.get('file')}:{sym.get('line_number')}`")
+                        st.markdown(f"**Code File:** `{sym.get('file')}:{sym.get('start_line', 1)}`")
                         st.markdown(f"**Outdated Documentation File:** `{doc.get('file')}:{doc.get('start_line')}-{doc.get('end_line')}`")
                     with c_right:
                         st.markdown(f"**Verification Decision:** `{dec.get('decision')}`")
