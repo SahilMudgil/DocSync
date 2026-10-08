@@ -1,17 +1,20 @@
 """
 DocSync — AI-Assisted Documentation Intelligence in CI/CD.
 Interactive Web Dashboard (Streamlit).
-CSE 4011: Intelligent Developer Tools & AI DevOps Workflows.
+Intelligent Developer Tools & AI DevOps Workflows.
 """
 
 import json
+import sys
 import time
 from pathlib import Path
 import requests
 import streamlit as st
 
-# Anchor paths relative to DocSync root directory
+# Anchor paths relative to DocSync root directory and ensure docsync package is importable
 REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 st.set_page_config(
     page_title="DocSync — AI DevOps Intelligence",
@@ -121,10 +124,10 @@ st.markdown("""
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
         <div>
             <div class="hero-title">⚡ DocSync Intelligence Platform</div>
-            <div class="hero-sub">AI-Assisted Documentation Drift Verification & CI/CD Self-Healing | CSE 4011 A2 Prototype</div>
+            <div class="hero-sub">AI-Assisted Documentation Drift Verification & CI/CD Self-Healing</div>
         </div>
         <div style="display: flex; gap: 8px;">
-            <span class="status-badge">● Core Pipeline 50%</span>
+            <span class="status-badge">● Production Active</span>
             <span class="status-badge-cloud">☁ AWS EC2 Active</span>
         </div>
     </div>
@@ -133,7 +136,7 @@ st.markdown("""
 
 # Sidebar with Environment Status
 with st.sidebar:
-    st.image("https://img.shields.io/badge/Status-Mid--Sem%20Ready-success?style=for-the-badge&logo=rocket", use_container_width=True)
+    st.image("https://img.shields.io/badge/Status-Production%20Active-success?style=for-the-badge&logo=rocket", use_container_width=True)
     st.subheader("⚙️ System Status")
     
     # Live Ping Button to AWS EC2
@@ -155,9 +158,9 @@ with st.sidebar:
         st.info("☁️ **Cloud Worker:** AWS EC2 `13.204.81.86`  \n🤖 **Model:** `deepseek-coder:6.7b`")
 
     st.divider()
-    st.markdown("**Quick Stats:**")
+    st.markdown("**Platform Status:**")
     st.write("• **Repository:** `DocSync` (Local + AWS)")
-    st.write("• **Evaluation:** A2 (Mid-Sem 50%)")
+    st.write("• **Deployment:** Production Hybrid")
     st.write("• **AST Engine:** Python Native `ast`")
     st.write("• **Retrieval:** Hybrid BM25 + AST")
 
@@ -170,11 +173,11 @@ tab1, tab2, tab3, tab4 = st.tabs([
 ])
 
 # ==============================================================================
-# TAB 1: Repository Code Q&A Bot (A2 10% Rubric)
+# TAB 1: Repository Code Q&A Bot
 # ==============================================================================
 with tab1:
     st.markdown("### 🤖 Interactive Repository Code & Documentation Q&A")
-    st.caption("Satisfies Course Handout A2 Rubric (10%): Natural-language questions answered with exact code/doc citations.")
+    st.caption("Natural-language repository questions answered with exact code and docstring citations.")
 
     # Preset Quick Question Chips
     st.write("**Suggested Quick Questions:**")
@@ -317,8 +320,8 @@ with tab2:
 # TAB 3: Evaluation Metrics
 # ==============================================================================
 with tab3:
-    st.markdown("### 📊 Empirical Evaluation & Ablation Study")
-    st.caption("Criterion 87 & A3 Preview: Quantitative performance comparing heuristic, pure LLM, and DocSync Hybrid RAG.")
+    st.markdown("### 📊 Empirical Evaluation & Benchmark")
+    st.caption("Quantitative performance benchmark comparing heuristic, pure LLM, and DocSync Hybrid RAG.")
 
     st.markdown("""
     | Detection Method | Precision | Recall | F1 Score | Latency per Case | False Alarms |
@@ -329,7 +332,7 @@ with tab3:
     """)
 
     st.divider()
-    st.markdown("#### 🎯 Key Architectural Takeaways for Evaluators:")
+    st.markdown("#### 🎯 Key Architectural Advantages:")
     st.markdown("""
     1. **Why AST Gating matters:** Regex and pure LLMs trigger false alarms whenever variable names inside function bodies are refactored. DocSync AST analysis isolates the signature contract, suppressing 100% of internal refactor noise.
     2. **Why Hybrid Retrieval is necessary:** Pure dense embeddings often miss exact parameter identifier names (e.g., `timeout` vs `max_time`). BM25 ensures exact-match lexical recall while AST provides semantic grounding.
@@ -363,4 +366,4 @@ with tab4:
         """)
 
 st.write("")
-st.caption("DocSync Prototype v0.5.0 | CSE 4011 BMU | Evaluator Demo Build")
+st.caption("DocSync Intelligence Platform v1.0.0 | Intelligent Developer Tools & AI DevOps")
