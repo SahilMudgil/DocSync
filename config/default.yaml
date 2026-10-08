@@ -1,0 +1,36 @@
+project:
+  name: docsync
+  version: "0.1.0"
+
+llm:
+  provider: fake            # gemini | ollama | fake
+  model: "gemini-1.5-flash" # default model name
+  temperature: 0.0
+  max_llm_calls_per_run: 40
+  price_per_1k_tokens: 0.0
+
+retrieval:
+  top_k: 5
+  vector_store: faiss       # faiss | chroma
+  embedding_model: sentence-transformers/all-MiniLM-L6-v2
+  rrf_k: 60
+  use_sourcegraph: false
+  callers_limit: 3
+
+analysis:
+  ignore_paths:
+    - tests/
+    - docs/_build/
+    - build/
+    - venv/
+    - .git/
+  max_code_chars: 4000
+
+prompts:
+  judge: DRIFT_JUDGE_V1
+  repair: REPAIR_V1
+  qa: CODE_QA_V1
+
+ci:
+  fail_on_drift: false
+  issue_min_confidence: 0.8

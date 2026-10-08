@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "docsync"
+version = "0.1.0"
+description = "Repository-Aware RAG for Documentation Drift Detection in CI/CD"
+authors = [{ name = "DocSync Team" }]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pydantic>=2.0",
+    "pyyaml>=6.0",
+    "rank_bm25>=0.2.2",
+    "streamlit>=1.30.0",
+]
+
+[project.scripts]
+docsync = "docsync.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["docsync*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

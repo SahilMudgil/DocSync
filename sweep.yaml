@@ -1,0 +1,12 @@
+# Sweep.dev automated PR remediation configuration
+branch: main
+gha_enabled: true
+draft: true
+description: "DocSync AI Assistant: Automatically update documentation when code changes cause documentation drift."
+blocked_dirs:
+  - tests/
+  - .github/
+  - venv/
+rules:
+  - "Only update documentation files (.md, .rst, docstrings). Never touch Python source code or logic."
+  - "Ensure updated default values, signatures, and exceptions exactly match the implementation."

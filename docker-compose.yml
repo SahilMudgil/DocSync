@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  docsync-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: docsync-dashboard
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      - STREAMLIT_SERVER_PORT=8501
+      - STREAMLIT_SERVER_ADDRESS=0.0.0.0
+    volumes:
+      - ./results:/app/results
+      - ./demo_output:/app/demo_output
+      - ./.docsync_cache:/app/.docsync_cache
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
