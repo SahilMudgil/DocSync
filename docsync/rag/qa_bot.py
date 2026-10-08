@@ -13,7 +13,7 @@ from docsync.llm.prompts import CODE_QA_V1_SYSTEM, CODE_QA_V1_USER
 
 
 class RepositoryQABot:
-    def __init__(self, chunks: List[DocChunk], provider: str = "fake", model: str = "gemini-1.5-flash"):
+    def __init__(self, chunks: List[DocChunk], provider: str = "fake", model: str = None):
         self.chunks = chunks
         self.lexical = BM25Retriever(chunks)
         self.embeddings = SimpleVectorStore(chunks)

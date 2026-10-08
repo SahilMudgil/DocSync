@@ -35,23 +35,40 @@ with tab1:
     st.subheader("🤖 Interactive Repository Code & Documentation Q&A")
     st.markdown("Ask natural-language questions about this repository's functions, classes, and documentation.")
 
-    user_query = st.text_input(
-        "Enter your question:",
-        value="What is the default timeout parameter in fetch_data()?",
-    )
+    col_q1, col_q2 = st.columns([3, 1])
+    with col_q1:
+        user_query = st.text_input(
+            "Enter your question:",
+            value="What is the default timeout parameter in fetch_data()?",
+        )
+    with col_q2:
+        model_choice = st.selectbox(
+            "Inference Engine:",
+            ["AWS Ollama (deepseek-coder:6.7b)", "Fast Offline Mode"],
+            index=0,
+        )
 
     if st.button("Submit Query", type="primary"):
-        with st.spinner("Retrieving code symbols and documentation chunks..."):
-            # Demo response illustrating RAG
-            st.success("✅ Context retrieved from AST Symbols & Vector Store")
-            st.markdown("""
-            **Answer:**  
-            The `fetch_data(url, timeout)` function connects to the target URL. In the latest source code (`client.py`), the `timeout` parameter defaults to **60 seconds**, although older documentation stated 30 seconds.
-            
-            **📌 Cited Sources:**
-            - `examples/demo_project/client.py:4-10` (Function definition)
-            - `examples/demo_project/docs/usage.md:3-8` (Usage guide section)
-            """)
+        provider = "ollama" if "AWS" in model_choice else "fake"
+        with st.spinner(f"Retrieving context & querying {model_choice}..."):
+            try:
+                from docsync.config import Config
+                from docsync.rag.qa_bot import RepositoryQABot
+
+                cfg = Config.from_env()
+                bot = RepositoryQABot(repo_dir=Path("examples/demo_project"), config=cfg, provider=provider)
+                res = bot.ask(user_query)
+
+                st.success("✅ Context retrieved from AST Symbols & Hybrid Search Index")
+                st.markdown(f"### Answer:\n{res.get('answer')}")
+
+                citations = res.get("citations", [])
+                if citations:
+                    st.markdown("**📌 Cited Sources:**")
+                    for c in citations:
+                        st.markdown(f"- `{c}`")
+            except Exception as ex:
+                st.error(f"Inference error: {ex}")
 
 # ==============================================================================
 # TAB 2: PR Drift Check Viewer

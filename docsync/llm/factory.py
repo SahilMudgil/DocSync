@@ -59,7 +59,7 @@ class OllamaChatModel(ChatModelInterface):
             "options": {"temperature": 0.0},
         }
         try:
-            resp = requests.post(url, json=payload, timeout=60)
+            resp = requests.post(url, json=payload, timeout=180)
             if resp.status_code == 200:
                 data = resp.json()
                 return data.get("message", {}).get("content", "")
@@ -94,16 +94,17 @@ class GeminiChatModel(ChatModelInterface):
             return f'{{"decision": "MODEL_ERROR", "confidence": 0.0, "reason": "Gemini API call failed: {str(e)}", "evidence_ids": []}}'
 
 
-def get_chat_model(provider: str = "fake", model: str = "gemini-1.5-flash", **kwargs) -> ChatModelInterface:
+def get_chat_model(provider: str = "fake", model: str = None, **kwargs) -> ChatModelInterface:
     """Return appropriate ChatModelInterface based on provider."""
     provider = provider.lower()
     if provider == "gemini":
         key = os.getenv("GOOGLE_API_KEY", "")
+        model_name = model or os.getenv("DOCSYNC_LLM_MODEL", "gemini-1.5-flash")
         if key:
-            return GeminiChatModel(api_key=key, model=model)
-        # Fallback to fake if key missing
+            return GeminiChatModel(api_key=key, model=model_name)
         return FakeChatModel()
     elif provider == "ollama":
         base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-        return OllamaChatModel(base_url=base_url, model=model)
+        model_name = os.getenv("DOCSYNC_LLM_MODEL", "deepseek-coder:6.7b")
+        return OllamaChatModel(base_url=base_url, model=model_name)
     return FakeChatModel()

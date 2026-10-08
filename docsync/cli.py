@@ -11,7 +11,7 @@ import argparse
 import json
 import sys
 from pathlib import Path
-from docsync.config import load_config
+from docsync.config import load_config, _load_env_file
 from docsync.pipeline import run_check
 from docsync.report.markdown_report import generate_markdown_report
 from docsync.models import RunResult
@@ -21,6 +21,7 @@ from docsync.rag.qa_bot import RepositoryQABot
 
 
 def main():
+    _load_env_file()
     parser = argparse.ArgumentParser(prog="docsync", description="DocSync: AI-Assisted Documentation Drift Detection & Code Q&A")
     subparsers = parser.add_subparsers(dest="command", required=True)
 

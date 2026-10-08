@@ -9,6 +9,20 @@ from typing import Any, Dict
 import yaml
 
 
+def _load_env_file():
+    """Load key-value pairs from .env into os.environ if present."""
+    env_path = Path(".env")
+    if env_path.exists():
+        for line in env_path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                k, v = line.split("=", 1)
+                os.environ.setdefault(k.strip(), v.strip())
+
+
+_load_env_file()
+
+
 def load_config(config_path: str = "config/default.yaml") -> Dict[str, Any]:
     """Load and return configuration dictionary from a YAML file."""
     path = Path(config_path)
