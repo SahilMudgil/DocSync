@@ -10,6 +10,10 @@ import os
 import json
 import requests
 from typing import Dict, Any
+from pathlib import Path
+from docsync.config import _load_env_file
+
+_load_env_file()
 
 
 class ChatModelInterface:

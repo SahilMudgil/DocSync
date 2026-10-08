@@ -8,26 +8,31 @@ from pathlib import Path
 from typing import Any, Dict
 import yaml
 
+REPO_ROOT = Path(__file__).resolve().parent.parent
+
 
 def _load_env_file():
     """Load key-value pairs from .env into os.environ if present."""
-    env_path = Path(".env")
+    env_path = REPO_ROOT / ".env"
     if env_path.exists():
         for line in env_path.read_text(encoding="utf-8").splitlines():
             line = line.strip()
             if line and not line.startswith("#") and "=" in line:
                 k, v = line.split("=", 1)
-                os.environ.setdefault(k.strip(), v.strip())
+                os.environ[k.strip()] = v.strip()
 
 
 _load_env_file()
 
 
-def load_config(config_path: str = "config/default.yaml") -> Dict[str, Any]:
+def load_config(config_path: str = None) -> Dict[str, Any]:
     """Load and return configuration dictionary from a YAML file."""
-    path = Path(config_path)
+    if config_path is None:
+        path = REPO_ROOT / "config" / "default.yaml"
+    else:
+        path = Path(config_path)
+
     if not path.exists():
-        # Fallback to defaults
         return {
             "project": {"name": "docsync"},
             "llm": {"provider": "fake", "model": "gemini-1.5-flash", "temperature": 0.0},
@@ -39,10 +44,17 @@ def load_config(config_path: str = "config/default.yaml") -> Dict[str, Any]:
     with open(path, "r", encoding="utf-8") as f:
         cfg = yaml.safe_load(f) or {}
 
-    # Override model / provider from environment if set
     if os.getenv("DOCSYNC_LLM_PROVIDER"):
         cfg.setdefault("llm", {})["provider"] = os.getenv("DOCSYNC_LLM_PROVIDER")
     if os.getenv("DOCSYNC_LLM_MODEL"):
         cfg.setdefault("llm", {})["model"] = os.getenv("DOCSYNC_LLM_MODEL")
 
     return cfg
+
+
+class Config:
+    """Convenience wrapper for configuration dictionary."""
+
+    @classmethod
+    def from_env(cls, config_path: str = None) -> Dict[str, Any]:
+        return load_config(config_path)

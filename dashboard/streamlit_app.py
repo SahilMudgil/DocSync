@@ -23,13 +23,19 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Custom High-Tech Styling (Glassmorphism, Modern Badges, Gradients)
+# Custom High-Tech Styling (Glassmorphism, Modern Badges, Gradients, Clean UI)
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
     
     html, body, [class*="css"] {
         font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    }
+    
+    /* Hide default Streamlit deploy button and header */
+    [data-testid="stDeployButton"], .stDeployButton {
+        display: none !important;
+        visibility: hidden !important;
     }
     
     .hero-header {
@@ -107,14 +113,6 @@ st.markdown("""
         text-transform: uppercase;
         letter-spacing: 0.05em;
     }
-    .code-pill {
-        font-family: 'JetBrains Mono', monospace;
-        background: #f1f5f9;
-        color: #0f172a;
-        padding: 2px 6px;
-        border-radius: 4px;
-        font-size: 0.85rem;
-    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -136,7 +134,6 @@ st.markdown("""
 
 # Sidebar with Environment Status
 with st.sidebar:
-    st.image("https://img.shields.io/badge/Status-Production%20Active-success?style=for-the-badge&logo=rocket", use_container_width=True)
     st.subheader("⚙️ System Status")
     
     # Live Ping Button to AWS EC2
@@ -166,87 +163,31 @@ with st.sidebar:
 
 # Main Navigation Tabs
 tab1, tab2, tab3, tab4 = st.tabs([
+    "🔍 PR Drift Check & Auto-Doc Repair",
     "🤖 Repository Code Q&A",
-    "🔍 PR Drift Check Viewer",
     "📊 Empirical Evaluation",
     "☁️ Cloud & DevOps Architecture",
 ])
 
 # ==============================================================================
-# TAB 1: Repository Code Q&A Bot
+# TAB 1: PR Drift Check Viewer (The Primary Core of DocSync)
 # ==============================================================================
 with tab1:
-    st.markdown("### 🤖 Interactive Repository Code & Documentation Q&A")
-    st.caption("Natural-language repository questions answered with exact code and docstring citations.")
+    st.markdown("### 🔍 Pull Request Documentation Drift Verification & Self-Healing")
+    st.caption("Automatically detects when code modifications make documentation outdated, and generates unified diff patches to sync them.")
 
-    # Preset Quick Question Chips
-    st.write("**Suggested Quick Questions:**")
-    q_col1, q_col2, q_col3 = st.columns(3)
-    preset_query = None
-    if q_col1.button("⏱ What is timeout default in fetch_data?", use_container_width=True):
-        preset_query = "What is the timeout default in fetch_data?"
-    if q_col2.button("📦 What classes are in demo_project?", use_container_width=True):
-        preset_query = "What classes or functions are in demo_project?"
-    if q_col3.button("❓ How does fetch_data handle headers?", use_container_width=True):
-        preset_query = "How does fetch_data work and what are its parameters?"
-
-    col_q1, col_q2 = st.columns([3, 1])
-    with col_q1:
-        default_val = preset_query or "What is the default timeout parameter in fetch_data()?"
-        user_query = st.text_input("Enter your question about this codebase:", value=default_val)
-    with col_q2:
-        model_choice = st.selectbox(
-            "Inference Engine:",
-            ["AWS Ollama (deepseek-coder:6.7b)", "Fast Offline Mode"],
-            index=0,
-        )
-
-    if st.button("🚀 Submit Query", type="primary", use_container_width=False):
-        provider = "ollama" if "AWS" in model_choice else "fake"
-        with st.spinner(f"Retrieving context via BM25 & querying {model_choice}..."):
-            try:
-                from docsync.config import Config
-                from docsync.rag.qa_bot import RepositoryQABot
-
-                cfg = Config.from_env()
-                demo_repo = REPO_ROOT / "examples" / "demo_project"
-                bot = RepositoryQABot(repo_dir=demo_repo, config=cfg, provider=provider)
-                res = bot.ask(user_query)
-
-                st.success("✅ Context retrieved from AST Symbols & BM25 Search Index")
-                
-                # Answer presentation
-                with st.container():
-                    st.markdown("#### 💡 Synthesized Answer:")
-                    st.markdown(res.get("answer", "No answer generated."))
-                
-                # Citations
-                citations = res.get("citations", [])
-                if citations:
-                    st.markdown("#### 📌 Verifiable Code Citations:")
-                    for c in citations:
-                        st.markdown(f"- 📄 `{c}`")
-                        
-            except Exception as ex:
-                st.error(f"Inference error: {ex}")
-
-# ==============================================================================
-# TAB 2: PR Drift Check Viewer
-# ==============================================================================
-with tab2:
-    st.markdown("### 🔍 Pull Request Documentation Drift Verification")
-    st.caption("Zero false-alarms on internal code refactors; triggers high-confidence drift on parameter changes with auto-patch.")
+    st.info("💡 **Core Value Demonstrated to Examiners:** When developers change function arguments or defaults in code (e.g., `timeout=30` to `60`), DocSync detects the drift and immediately generates a `.diff` patch to update `docs/` and docstrings.")
 
     col_run1, col_run2 = st.columns([1, 4])
     with col_run1:
-        if st.button("▶ Run Live Drift Demo", type="secondary"):
+        if st.button("▶ Run Live Drift Demo", type="primary"):
             import subprocess
             res = subprocess.run(
                 [str(REPO_ROOT / "venv" / "Scripts" / "python.exe"), str(REPO_ROOT / "scripts" / "run_demo.py")],
                 capture_output=True,
                 text=True,
             )
-            st.success("Demo executed!")
+            st.success("Analysis Complete!")
 
     latest_json_path = REPO_ROOT / "demo_output" / "latest.json"
     if not latest_json_path.exists():
@@ -289,7 +230,7 @@ with tab2:
                 """, unsafe_allow_html=True)
 
             st.write("---")
-            st.markdown("#### 📋 Drift Findings & Auto-Remediation Patches")
+            st.markdown("#### 📋 Stale Documentation Detected & Auto-Remediation Patch")
             
             for it in data.get("items", []):
                 sym = it.get("changed_symbol", {}).get("symbol", {})
@@ -300,21 +241,90 @@ with tab2:
                 with st.expander(f"🔴 DRIFT DETECTED: Symbol `{sym.get('name')}` (Confidence: {dec.get('confidence', 0.0):.2f})", expanded=True):
                     c_left, c_right = st.columns(2)
                     with c_left:
-                        st.markdown(f"**AST Symbol:** `{sym.get('name')}`")
-                        st.markdown(f"**Source File:** `{sym.get('file')}:{sym.get('line_number')}`")
-                        st.markdown(f"**Target Doc:** `{doc.get('file')}:{doc.get('start_line')}-{doc.get('end_line')}`")
+                        st.markdown(f"**Modified Code Symbol:** `{sym.get('name')}`")
+                        st.markdown(f"**Code File:** `{sym.get('file')}:{sym.get('line_number')}`")
+                        st.markdown(f"**Outdated Documentation File:** `{doc.get('file')}:{doc.get('start_line')}-{doc.get('end_line')}`")
                     with c_right:
-                        st.markdown(f"**Decision:** `{dec.get('decision')}`")
+                        st.markdown(f"**Verification Decision:** `{dec.get('decision')}`")
                         st.markdown(f"**Evidence IDs:** `{', '.join(dec.get('evidence_ids', []))}`")
                         st.markdown(f"**Detection Reason:** *{dec.get('reason')}*")
 
                     if repair and repair.get("unified_diff"):
-                        st.markdown("##### 🛠 Automated Remediation Patch (`.diff`):")
+                        st.markdown("##### 🛠 Automated Documentation Patch Generated by DocSync (`.diff`):")
+                        st.markdown("*This patch automatically updates the outdated documentation to match the new code:*")
                         st.code(repair.get("unified_diff"), language="diff")
         except Exception as e:
             st.error(f"Error reading results: {e}")
     else:
         st.info("Click 'Run Live Drift Demo' to generate real-time drift output.")
+
+# ==============================================================================
+# TAB 2: Repository Code Q&A Bot
+# ==============================================================================
+with tab2:
+    st.markdown("### 🤖 Interactive Repository Code & Documentation Q&A")
+    st.caption("Natural-language repository questions answered with exact code and docstring citations.")
+
+    # Preset Quick Question Chips
+    st.write("**Suggested Quick Questions:**")
+    q_col1, q_col2, q_col3 = st.columns(3)
+    preset_query = None
+    if q_col1.button("⏱ What is timeout default in fetch_data?", use_container_width=True):
+        preset_query = "What is the default timeout parameter in fetch_data()?"
+    if q_col2.button("📦 What classes are in demo_project?", use_container_width=True):
+        preset_query = "What classes or functions are in demo_project?"
+    if q_col3.button("❓ How does fetch_data handle headers?", use_container_width=True):
+        preset_query = "How does fetch_data work and what are its parameters?"
+
+    col_q1, col_q2 = st.columns([3, 1])
+    with col_q1:
+        default_val = preset_query or "What is the default timeout parameter in fetch_data()?"
+        user_query = st.text_input("Enter your question about this codebase:", value=default_val)
+    with col_q2:
+        model_choice = st.selectbox(
+            "Inference Engine:",
+            ["Fast Offline Mode", "AWS Ollama (deepseek-coder:6.7b)"],
+            index=0,
+        )
+
+    if st.button("🚀 Submit Query", type="primary", use_container_width=False):
+        provider = "ollama" if "AWS" in model_choice else "fake"
+        with st.spinner(f"Retrieving context & querying {model_choice}..."):
+            try:
+                from docsync.ingest.code_parser import parse_python_file
+                from docsync.ingest.doc_parser import parse_doc_file, extract_docstring_chunks
+                from docsync.rag.qa_bot import RepositoryQABot
+
+                demo_repo = REPO_ROOT / "examples" / "demo_project"
+                chunks = []
+                for py_file in demo_repo.rglob("*.py"):
+                    syms = parse_python_file(str(py_file), repo_root=str(demo_repo))
+                    chunks.extend(extract_docstring_chunks(syms))
+                for doc_file in demo_repo.rglob("*.md"):
+                    chunks.extend(parse_doc_file(str(doc_file), repo_root=str(demo_repo)))
+
+                bot = RepositoryQABot(chunks, provider=provider)
+                res = bot.answer_query(user_query)
+
+                st.success("✅ Context retrieved from AST Symbols & BM25 Search Index")
+                
+                # Answer presentation
+                with st.container():
+                    st.markdown("#### 💡 Synthesized Answer:")
+                    st.markdown(res.get("answer", "No answer generated."))
+                
+                # Citations
+                citations = res.get("citations", [])
+                if citations:
+                    st.markdown("#### 📌 Verifiable Code Citations:")
+                    for c in citations:
+                        if isinstance(c, dict):
+                            st.markdown(f"- 📄 `{c.get('file')}:{c.get('lines')}`")
+                        else:
+                            st.markdown(f"- 📄 `{c}`")
+                        
+            except Exception as ex:
+                st.error(f"Inference error: {ex}")
 
 # ==============================================================================
 # TAB 3: Evaluation Metrics
