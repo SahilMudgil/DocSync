@@ -19,8 +19,8 @@ def rule_based_check(
     sig = sym.signature
     doc_text = doc_chunk.text
 
-    # 1. Check for default values mismatch (e.g. timeout=60 vs "defaults to 30")
-    defaults_in_sig = re.findall(r"([a-zA-Z0-9_]+)\s*=\s*([0-9]+|True|False|None|\"[^\"]*\")", sig)
+    # 1. Check for default values mismatch (e.g. timeout: int = 60 vs "defaults to 30")
+    defaults_in_sig = re.findall(r"([a-zA-Z0-9_]+)(?:\s*:[^=,]+)?\s*=\s*([0-9\.]+|True|False|None)", sig)
 
     for param, new_val in defaults_in_sig:
         # Search for pattern like "param defaults to <old_val>" or "defaults to <old_val>"

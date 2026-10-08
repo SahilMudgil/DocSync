@@ -16,6 +16,9 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from docsync.config import _load_env_file
+_load_env_file()
+
 st.set_page_config(
     page_title="DocSync — AI DevOps Intelligence",
     page_icon="⚡",
@@ -255,8 +258,47 @@ with tab1:
                         st.code(repair.get("unified_diff"), language="diff")
         except Exception as e:
             st.error(f"Error reading results: {e}")
-    else:
-        st.info("Click 'Run Live Drift Demo' to generate real-time drift output.")
+    st.write("---")
+    st.markdown("### 🧪 Live Interactive Sandbox: Test Custom Code Changes Live")
+    st.caption("Change any code function or documentation below to see DocSync detect drift and generate the repair patch live!")
+
+    box_col1, box_col2 = st.columns(2)
+    with box_col1:
+        custom_code = st.text_area(
+            "Source Code (Edit signature or defaults):",
+            value='def fetch_data(url: str, timeout: int = 60) -> dict:\n    """Fetch payload from endpoint."""\n    return {"status": 200}',
+            height=120,
+        )
+    with box_col2:
+        custom_doc = st.text_area(
+            "Documentation (Markdown or docstring):",
+            value='# API Reference\nThe fetch_data function timeout defaults to 30 seconds.',
+            height=120,
+        )
+
+    if st.button("⚡ Verify Drift on Custom Code", type="primary"):
+        try:
+            from docsync.ingest.code_parser import parse_python_source
+            from docsync.models import ChangedSymbol, DocChunk
+            from docsync.drift.rule_based import rule_based_check
+
+            syms = parse_python_source(custom_code, "custom_module.py")
+            if not syms:
+                st.warning("No functions or classes found in the provided code snippet.")
+            else:
+                changed_sym = ChangedSymbol(symbol=syms[0], change_type="modified")
+                doc_chunk = DocChunk(id="custom_doc", file="custom_docs.md", text=custom_doc, start_line=1, end_line=5)
+                decision, repair = rule_based_check(changed_sym, doc_chunk)
+
+                if decision.decision == "DRIFT":
+                    st.error(f"🔴 DRIFT DETECTED: {decision.reason} (Confidence: {decision.confidence:.2f})")
+                    if repair and repair.unified_diff:
+                        st.markdown("**🛠 Generated Remediation Patch (`.diff`):**")
+                        st.code(repair.unified_diff, language="diff")
+                else:
+                    st.success("🟢 CODE & DOCS ARE IN SYNC! No drift detected (Zero false alarms).")
+        except Exception as e:
+            st.error(f"Analysis error: {e}")
 
 # ==============================================================================
 # TAB 2: Repository Code Q&A Bot

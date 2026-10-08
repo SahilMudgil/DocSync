@@ -108,7 +108,7 @@ def get_chat_model(provider: str = "fake", model: str = None, **kwargs) -> ChatM
             return GeminiChatModel(api_key=key, model=model_name)
         return FakeChatModel()
     elif provider == "ollama":
-        base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+        base_url = os.getenv("OLLAMA_BASE_URL", "http://13.204.81.86:11434")
         model_name = os.getenv("DOCSYNC_LLM_MODEL", "deepseek-coder:6.7b")
         return OllamaChatModel(base_url=base_url, model=model_name)
     return FakeChatModel()
