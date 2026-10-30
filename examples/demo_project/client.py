@@ -5,8 +5,8 @@ Client API implementation module.
 def fetch_data(url: str, timeout: int = 70, retries: int = 15) -> dict:
     """
     Fetch payload from specified endpoint.
-    Defaults to a 50 second timeout.
-    The retries parameter defaults to 5 attempts.
+    Defaults to a 70 second timeout.
+    The retries parameter defaults to 15 attempts.
     """
     if not url:
         raise ValueError("URL cannot be empty")
