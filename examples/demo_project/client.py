@@ -13,7 +13,7 @@ def fetch_data(url: str, timeout: int = 50, retries: int = 5) -> dict:
     return {"status": 200, "url": url, "timeout": timeout, "retries": retries}
 
 
-def upload_file(filepath: str, max_size_mb: int = 90, compress: bool = False) -> bool:
+def upload_file(filepath: str, max_size_mb: int = 40, compress: bool = True) -> bool:
     """
     Upload file asset to remote storage.
     The max_size_mb parameter defaults to 90 MB.
