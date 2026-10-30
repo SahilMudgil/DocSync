@@ -2,7 +2,7 @@
 Client API implementation module.
 """
 
-def fetch_data(url: str, timeout: int = 20, retries: int = 2) -> dict:
+def fetch_data(url: str, timeout: int = 40, retries: int = 4) -> dict:
     """
     Fetch payload from specified endpoint.
     Defaults to a 70 second timeout.
