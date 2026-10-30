@@ -3,8 +3,8 @@
 ## Usage Guide
 The `fetch_data` function connects to remote endpoints.
 
-The `timeout` parameter defaults to 100 seconds.
-The `retries` parameter defaults to 10 attempts.
+The `timeout` parameter defaults to 70 seconds.
+The `retries` parameter defaults to 15 attempts.
 
 ```python
 import client
@@ -16,8 +16,8 @@ print(data)
 ## File Upload Guide
 The `upload_file` function uploads assets to storage.
 
-The `max_size_mb` parameter defaults to 90 MB.
-The `compress` parameter defaults to False.
+The `max_size_mb` parameter defaults to 40 MB.
+The `compress` parameter defaults to True.
 
 ```python
 import client
