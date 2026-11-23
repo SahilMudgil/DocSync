@@ -19,7 +19,15 @@ def get_git_diff_ranges(repo_path: str, base_sha: str, head_sha: str) -> Dict[st
     """
     cmd = ["git", "diff", "--unified=0", f"{base_sha}..{head_sha}"]
     try:
-        proc = subprocess.run(cmd, cwd=repo_path, capture_output=True, text=True, check=True)
+        proc = subprocess.run(
+            cmd,
+            cwd=repo_path,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            check=True,
+        )
         diff_text = proc.stdout
     except Exception:
         return {}
@@ -99,6 +107,8 @@ def _get_git_file_content(repo_path: str, commit_sha: str, rel_path: str) -> Opt
             cwd=repo_path,
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            errors="replace",
             check=True,
         )
         return proc.stdout

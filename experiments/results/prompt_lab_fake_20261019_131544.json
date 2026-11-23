@@ -1,0 +1,207 @@
+{
+  "timestamp": "2026-10-19T13:15:44.505235",
+  "provider": "fake",
+  "model": "gemini-1.5-flash",
+  "tasks": {
+    "docstring_completion": {
+      "v1": [
+        {
+          "func": "fetch_data",
+          "score": 0.0,
+          "output": "\"\"\"Concise summary of function execution.\"\"\""
+        },
+        {
+          "func": "test_client",
+          "score": 0.0,
+          "output": "\"\"\"Concise summary of function execution.\"\"\""
+        },
+        {
+          "func": "send_from_directory",
+          "score": 0.0,
+          "output": "\"\"\"Concise summary of function execution.\"\"\""
+        },
+        {
+          "func": "flash",
+          "score": 0.0,
+          "output": "\"\"\"Concise summary of function execution.\"\"\""
+        },
+        {
+          "func": "url_for",
+          "score": 0.0,
+          "output": "\"\"\"Concise summary of function execution.\"\"\""
+        },
+        {
+          "func": "make_response",
+          "score": 0.0,
+          "output": "\"\"\"Concise summary of function execution.\"\"\""
+        },
+        {
+          "func": "select_jinja_autoescape",
+          "score": 0.0,
+          "output": "\"\"\"Concise summary of function execution.\"\"\""
+        },
+        {
+          "func": "get_flashed_messages",
+          "score": 0.0,
+          "output": "\"\"\"Concise summary of function execution.\"\"\""
+        }
+      ],
+      "v2": [
+        {
+          "func": "fetch_data",
+          "score": 1.0,
+          "output": "\"\"\"Summary of the target function behavior.\n\nArgs:\n    url (str): Target endpoint URL.\n    timeout (int): Request timeout seconds.\n    directory (str): Base folder path.\n    path ("
+        },
+        {
+          "func": "test_client",
+          "score": 1.0,
+          "output": "\"\"\"Summary of the target function behavior.\n\nArgs:\n    url (str): Target endpoint URL.\n    timeout (int): Request timeout seconds.\n    directory (str): Base folder path.\n    path ("
+        },
+        {
+          "func": "send_from_directory",
+          "score": 1.0,
+          "output": "\"\"\"Summary of the target function behavior.\n\nArgs:\n    url (str): Target endpoint URL.\n    timeout (int): Request timeout seconds.\n    directory (str): Base folder path.\n    path ("
+        },
+        {
+          "func": "flash",
+          "score": 1.0,
+          "output": "\"\"\"Summary of the target function behavior.\n\nArgs:\n    url (str): Target endpoint URL.\n    timeout (int): Request timeout seconds.\n    directory (str): Base folder path.\n    path ("
+        },
+        {
+          "func": "url_for",
+          "score": 0.75,
+          "output": "\"\"\"Summary of the target function behavior.\n\nArgs:\n    url (str): Target endpoint URL.\n    timeout (int): Request timeout seconds.\n    directory (str): Base folder path.\n    path ("
+        },
+        {
+          "func": "make_response",
+          "score": 1.0,
+          "output": "\"\"\"Summary of the target function behavior.\n\nArgs:\n    url (str): Target endpoint URL.\n    timeout (int): Request timeout seconds.\n    directory (str): Base folder path.\n    path ("
+        },
+        {
+          "func": "select_jinja_autoescape",
+          "score": 1.0,
+          "output": "\"\"\"Summary of the target function behavior.\n\nArgs:\n    url (str): Target endpoint URL.\n    timeout (int): Request timeout seconds.\n    directory (str): Base folder path.\n    path ("
+        },
+        {
+          "func": "get_flashed_messages",
+          "score": 1.0,
+          "output": "\"\"\"Summary of the target function behavior.\n\nArgs:\n    url (str): Target endpoint URL.\n    timeout (int): Request timeout seconds.\n    directory (str): Base folder path.\n    path ("
+        }
+      ]
+    },
+    "refactoring": [
+      {
+        "func": "fetch_data",
+        "compiles": true,
+        "chars_original": 127,
+        "chars_refactored": 134
+      },
+      {
+        "func": "test_client",
+        "compiles": true,
+        "chars_original": 134,
+        "chars_refactored": 130
+      },
+      {
+        "func": "send_from_directory",
+        "compiles": true,
+        "chars_original": 204,
+        "chars_refactored": 154
+      },
+      {
+        "func": "flash",
+        "compiles": true,
+        "chars_original": 127,
+        "chars_refactored": 141
+      },
+      {
+        "func": "url_for",
+        "compiles": true,
+        "chars_original": 156,
+        "chars_refactored": 151
+      },
+      {
+        "func": "make_response",
+        "compiles": true,
+        "chars_original": 130,
+        "chars_refactored": 107
+      },
+      {
+        "func": "select_jinja_autoescape",
+        "compiles": true,
+        "chars_original": 178,
+        "chars_refactored": 155
+      },
+      {
+        "func": "get_flashed_messages",
+        "compiles": true,
+        "chars_original": 196,
+        "chars_refactored": 168
+      }
+    ],
+    "explanation": [
+      {
+        "func": "fetch_data",
+        "line_count": 3,
+        "is_3_lines": true,
+        "snippet": "1. Core Purpose: Executes the target operation according to contract."
+      },
+      {
+        "func": "test_client",
+        "line_count": 3,
+        "is_3_lines": true,
+        "snippet": "1. Core Purpose: Executes the target operation according to contract."
+      },
+      {
+        "func": "send_from_directory",
+        "line_count": 3,
+        "is_3_lines": true,
+        "snippet": "1. Core Purpose: Executes the target operation according to contract."
+      },
+      {
+        "func": "flash",
+        "line_count": 3,
+        "is_3_lines": true,
+        "snippet": "1. Core Purpose: Executes the target operation according to contract."
+      },
+      {
+        "func": "url_for",
+        "line_count": 3,
+        "is_3_lines": true,
+        "snippet": "1. Core Purpose: Executes the target operation according to contract."
+      },
+      {
+        "func": "make_response",
+        "line_count": 3,
+        "is_3_lines": true,
+        "snippet": "1. Core Purpose: Executes the target operation according to contract."
+      },
+      {
+        "func": "select_jinja_autoescape",
+        "line_count": 3,
+        "is_3_lines": true,
+        "snippet": "1. Core Purpose: Executes the target operation according to contract."
+      },
+      {
+        "func": "get_flashed_messages",
+        "line_count": 3,
+        "is_3_lines": true,
+        "snippet": "1. Core Purpose: Executes the target operation according to contract."
+      }
+    ],
+    "drift_judge_v1_vs_v2": [
+      {
+        "v1_output": "{\"decision\": \"DRIFT\", \"confidence\": 0.95, \"reason\": \"Parameter default changed in code but documentation still states old value.\", \"evidence_ids\": [\"E2\", \"D1\"]}",
+        "v2_output": "{\"decision\": \"DRIFT\", \"confidence\": 0.95, \"reason\": \"Claim-by-claim verification: code evidence contradicts documentation.\", \"evidence_ids\": [\"E2\", \"D1\"], \"claims\": [{\"claim\": \"Documented contract behavior\", \"status\": \"CONTRADICTED\"}]}",
+        "v2_has_claims": true
+      }
+    ]
+  },
+  "summary": {
+    "docstring_completeness_v1": 0.0,
+    "docstring_completeness_v2": 0.9688,
+    "v2_improvement_pct": 0.0,
+    "refactor_compilation_rate": 1.0,
+    "explanation_format_adherence": 1.0
+  }
+}

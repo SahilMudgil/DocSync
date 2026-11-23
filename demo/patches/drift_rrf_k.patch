@@ -1,0 +1,13 @@
+--- a/examples/demo_project/docs/usage.md
++++ b/examples/demo_project/docs/usage.md
+@@ -1,7 +1,7 @@
+ # Usage Guide
+ 
+-The timeout defaults to 30 seconds for remote fetch calls.
++The timeout defaults to 60 seconds for remote fetch calls.
+ 
+ ```python
+ from client import fetch_data
+-data = fetch_data("https://api.example.com", timeout=30)
++data = fetch_data("https://api.example.com", timeout=60)
+ ```

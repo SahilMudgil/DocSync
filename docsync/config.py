@@ -22,6 +22,25 @@ def _load_env_file():
                 os.environ[k.strip()] = v.strip()
 
 
+def update_env_value(key: str, value: str) -> None:
+    """Update or append a key-value pair in .env and os.environ."""
+    os.environ[key] = value
+    env_path = REPO_ROOT / ".env"
+    lines = []
+    found = False
+    if env_path.exists():
+        for line in env_path.read_text(encoding="utf-8").splitlines():
+            stripped = line.strip()
+            if stripped.startswith(f"{key}=") or stripped.startswith(f"{key} "):
+                lines.append(f"{key}={value}")
+                found = True
+            else:
+                lines.append(line)
+    if not found:
+        lines.append(f"{key}={value}")
+    env_path.write_text("\n".join(lines).strip() + "\n", encoding="utf-8")
+
+
 _load_env_file()
 
 

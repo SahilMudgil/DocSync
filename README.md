@@ -43,8 +43,40 @@ docker compose up
 
 ## 🛠️ Technology Stack & AI DevOps Tooling
 - **Semantic Code Understanding:** Python AST & Tree-sitter symbol parsing.
-- **RAG & Vector Retrieval:** LangChain, FAISS, BM25, Reciprocal Rank Fusion (RRF).
+- **RAG & Vector Retrieval:** LangChain, FAISS, BM25, Reciprocal Rank Fusion (RRF), Sourcegraph code search.
 - **LLM Judges & Open Models:** Google Gemini API & Ollama (DeepSeek-Coder / Code Llama on AWS EC2).
 - **CI/CD & Automation:** GitHub Actions (`.github/workflows/docsync-pr.yml`), Sweep.dev (`sweep.yaml`).
-- **Testing & Quality:** Pytest, CodiumAI / Qodo AI-assisted testing.
+- **Testing & Quality:** Pytest (67 offline tests), CodiumAI / Qodo AI-assisted testing.
 - **Containers:** Multi-stage `Dockerfile`, `docker-compose.yml`.
+
+---
+
+## 📊 Evaluation & Empirical Experiments (A3)
+
+### 1. Run Empirical Benchmark Suite (E1, E2, E6)
+```bash
+# Run quick 6-case smoke test offline with fake provider:
+python -m docsync.cli evaluate --config experiments/configs/smoke.yaml
+
+# Run full 32-case Pallets/Flask benchmark:
+python -m docsync.cli evaluate --config experiments/configs/default.yaml
+```
+Output results are logged to `experiments/results/` and Markdown reports to `experiments/reports/`.
+
+### 2. Run Prompt Engineering Lab
+```bash
+# Evaluate docstring completion, refactoring, and claim-by-claim verification:
+python -m docsync.cli prompt-lab --provider fake
+```
+Findings and model comparison matrices are documented in `docs/prompt_engineering.md`.
+
+---
+
+## ⚖️ Limitations & Ethical Considerations
+DocSync is an advisory gate with a strict human-in-the-loop requirement — it proposes unified diffs but **never auto-merges code or documentation**. Comprehensive analysis of 13 critical technical, ethical, and security risks (including static analysis limits, hallucination guardrails, private code governance, and prompt injection mitigations) is documented in [docs/ethics_limitations.md](docs/ethics_limitations.md).
+
+---
+
+## 🤖 AI Usage Disclosure
+In compliance with responsible AI use guidelines, initial architecture skeletons and test scaffolds were developed with AI pair-programming assistance (Google DeepMind Antigravity). Ground truth benchmark verification, experimental design, and viva defense are conducted directly by the student engineering team. Full disclosure: [docs/AI_USAGE_DISCLOSURE.md](docs/AI_USAGE_DISCLOSURE.md).
+

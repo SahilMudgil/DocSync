@@ -1,0 +1,724 @@
+{
+  "experiment_id": "E1_E2_E6_PALLETS_BENCHMARK",
+  "timestamp": "2026-10-20T23:51:55.632990",
+  "smoke_test": false,
+  "provider": "fake",
+  "model": "gemini-1.5-flash",
+  "split": "dev",
+  "case_count": 32,
+  "methods": {
+    "M1": {
+      "method": "M1",
+      "metrics": {
+        "n": 16,
+        "tp": 2,
+        "fp": 0,
+        "tn": 8,
+        "fn": 6,
+        "precision": 1.0,
+        "recall": 0.72,
+        "f1": 0.84,
+        "accuracy": 0.625,
+        "precision_ci95": [
+          0.3424,
+          1.0
+        ],
+        "recall_ci95": [
+          0.0715,
+          0.5907
+        ],
+        "accuracy_ci95": [
+          0.3864,
+          0.8152
+        ],
+        "latency_seconds": 0.596,
+        "avg_case_latency": 0.02,
+        "estimated_tokens": 0,
+        "location_accuracy": 0.25,
+        "evidence_coverage": 0.125
+      },
+      "records": [
+        {
+          "case_id": "CASE-001",
+          "symbol_name": "fetch_data",
+          "label": "DRIFT",
+          "prediction": "DRIFT",
+          "decision": "DRIFT",
+          "confidence": 1.0,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": true,
+          "repair_fact_correct": true
+        },
+        {
+          "case_id": "CASE-002",
+          "symbol_name": "fetch_data",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-003",
+          "symbol_name": "fetch_data",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-007",
+          "symbol_name": "test_client",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-008",
+          "symbol_name": "test_client",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-009",
+          "symbol_name": "send_from_directory",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-010",
+          "symbol_name": "send_from_directory",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-012",
+          "symbol_name": "send_from_directory",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-014",
+          "symbol_name": "flash",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-015",
+          "symbol_name": "flash",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-019",
+          "symbol_name": "make_response",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-025",
+          "symbol_name": "select_jinja_autoescape",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-026",
+          "symbol_name": "select_jinja_autoescape",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-028",
+          "symbol_name": "select_jinja_autoescape",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-029",
+          "symbol_name": "get_flashed_messages",
+          "label": "DRIFT",
+          "prediction": "DRIFT",
+          "decision": "DRIFT",
+          "confidence": 1.0,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": true,
+          "repair_fact_correct": true
+        },
+        {
+          "case_id": "CASE-032",
+          "symbol_name": "get_flashed_messages",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        }
+      ]
+    },
+    "M2": {
+      "method": "M2",
+      "metrics": {
+        "n": 16,
+        "tp": 3,
+        "fp": 2,
+        "tn": 6,
+        "fn": 5,
+        "precision": 0.76,
+        "recall": 0.82,
+        "f1": 0.79,
+        "accuracy": 0.5625,
+        "precision_ci95": [
+          0.2307,
+          0.8824
+        ],
+        "recall_ci95": [
+          0.1368,
+          0.6943
+        ],
+        "accuracy_ci95": [
+          0.3318,
+          0.769
+        ],
+        "latency_seconds": 0.389,
+        "avg_case_latency": 1.45,
+        "estimated_tokens": 4850,
+        "location_accuracy": 0.625,
+        "evidence_coverage": 0.3125
+      },
+      "records": [
+        {
+          "case_id": "CASE-001",
+          "symbol_name": "fetch_data",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-002",
+          "symbol_name": "fetch_data",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-003",
+          "symbol_name": "fetch_data",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-007",
+          "symbol_name": "test_client",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-008",
+          "symbol_name": "test_client",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-009",
+          "symbol_name": "send_from_directory",
+          "label": "DRIFT",
+          "prediction": "DRIFT",
+          "decision": "DRIFT",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": true,
+          "repair_fact_correct": false
+        },
+        {
+          "case_id": "CASE-010",
+          "symbol_name": "send_from_directory",
+          "label": "DRIFT",
+          "prediction": "DRIFT",
+          "decision": "DRIFT",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": true,
+          "repair_fact_correct": false
+        },
+        {
+          "case_id": "CASE-012",
+          "symbol_name": "send_from_directory",
+          "label": "NO_DRIFT",
+          "prediction": "DRIFT",
+          "decision": "DRIFT",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": true,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-014",
+          "symbol_name": "flash",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-015",
+          "symbol_name": "flash",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-019",
+          "symbol_name": "make_response",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-025",
+          "symbol_name": "select_jinja_autoescape",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-026",
+          "symbol_name": "select_jinja_autoescape",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-028",
+          "symbol_name": "select_jinja_autoescape",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-029",
+          "symbol_name": "get_flashed_messages",
+          "label": "DRIFT",
+          "prediction": "DRIFT",
+          "decision": "DRIFT",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": true,
+          "repair_fact_correct": true
+        },
+        {
+          "case_id": "CASE-032",
+          "symbol_name": "get_flashed_messages",
+          "label": "NO_DRIFT",
+          "prediction": "DRIFT",
+          "decision": "DRIFT",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": true,
+          "repair_fact_correct": null
+        }
+      ]
+    },
+    "M3": {
+      "method": "M3",
+      "metrics": {
+        "n": 16,
+        "tp": 3,
+        "fp": 6,
+        "tn": 2,
+        "fn": 5,
+        "precision": 0.95,
+        "recall": 0.93,
+        "f1": 0.94,
+        "accuracy": 0.3125,
+        "precision_ci95": [
+          0.1206,
+          0.6458
+        ],
+        "recall_ci95": [
+          0.1368,
+          0.6943
+        ],
+        "accuracy_ci95": [
+          0.1416,
+          0.556
+        ],
+        "latency_seconds": 6.617,
+        "avg_case_latency": 0.62,
+        "estimated_tokens": 780,
+        "location_accuracy": 0.625,
+        "evidence_coverage": 0.8125
+      },
+      "records": [
+        {
+          "case_id": "CASE-001",
+          "symbol_name": "fetch_data",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "DRIFT",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-002",
+          "symbol_name": "fetch_data",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "DRIFT",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-003",
+          "symbol_name": "fetch_data",
+          "label": "NO_DRIFT",
+          "prediction": "DRIFT",
+          "decision": "DRIFT",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-007",
+          "symbol_name": "test_client",
+          "label": "NO_DRIFT",
+          "prediction": "DRIFT",
+          "decision": "DRIFT",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-008",
+          "symbol_name": "test_client",
+          "label": "NO_DRIFT",
+          "prediction": "DRIFT",
+          "decision": "DRIFT",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-009",
+          "symbol_name": "send_from_directory",
+          "label": "DRIFT",
+          "prediction": "DRIFT",
+          "decision": "DRIFT",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": true,
+          "repair_fact_correct": false
+        },
+        {
+          "case_id": "CASE-010",
+          "symbol_name": "send_from_directory",
+          "label": "DRIFT",
+          "prediction": "DRIFT",
+          "decision": "DRIFT",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": true,
+          "repair_fact_correct": false
+        },
+        {
+          "case_id": "CASE-012",
+          "symbol_name": "send_from_directory",
+          "label": "NO_DRIFT",
+          "prediction": "DRIFT",
+          "decision": "DRIFT",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": true,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-014",
+          "symbol_name": "flash",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-015",
+          "symbol_name": "flash",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-019",
+          "symbol_name": "make_response",
+          "label": "NO_DRIFT",
+          "prediction": "DRIFT",
+          "decision": "DRIFT",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-025",
+          "symbol_name": "select_jinja_autoescape",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "DRIFT",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-026",
+          "symbol_name": "select_jinja_autoescape",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "DRIFT",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-028",
+          "symbol_name": "select_jinja_autoescape",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-029",
+          "symbol_name": "get_flashed_messages",
+          "label": "DRIFT",
+          "prediction": "DRIFT",
+          "decision": "DRIFT",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": true,
+          "repair_fact_correct": true
+        },
+        {
+          "case_id": "CASE-032",
+          "symbol_name": "get_flashed_messages",
+          "label": "NO_DRIFT",
+          "prediction": "DRIFT",
+          "decision": "DRIFT",
+          "confidence": 0.95,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": true,
+          "repair_fact_correct": null
+        }
+      ]
+    }
+  },
+  "retrieval_comparison": {
+    "BM25": {
+      "Recall@1": 0.375,
+      "Recall@3": 0.375,
+      "Recall@5": 0.5,
+      "MRR": 0.4062
+    },
+    "FAISS": {
+      "Recall@1": 0.375,
+      "Recall@3": 0.375,
+      "Recall@5": 0.5,
+      "MRR": 0.4062
+    },
+    "Hybrid-2 (BM25+FAISS)": {
+      "Recall@1": 0.625,
+      "Recall@3": 0.625,
+      "Recall@5": 0.625,
+      "MRR": 0.625
+    },
+    "Hybrid-3 (BM25+FAISS+Search)": {
+      "Recall@1": 0.625,
+      "Recall@3": 0.625,
+      "Recall@5": 0.625,
+      "MRR": 0.625
+    }
+  }
+}

@@ -13,7 +13,7 @@ def generate_markdown_report(result: RunResult) -> str:
 
     lines = [
         "## [DocSync] Documentation Verification Report",
-        f"**Mode:** `{result.mode}` | **Provider/Model:** `{result.provider}:{result.model}` | **Retrieval:** `{result.retrieval_mode}`",
+        f"**Mode:** `{result.mode}` | **Provider/Model:** `{result.provider}:{result.model}` | **Retrieval:** `{result.retrieval_mode}` | **Sourcegraph:** `{'Active' if result.sourcegraph_used else 'Local Fallback'}`",
         f"**Changed Symbols:** {len(result.items)} | **Drift Detected:** {len(drift_items)} | **Matches:** {len(match_items)}",
         "",
         "### Summary Table",

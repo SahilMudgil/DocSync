@@ -10,7 +10,12 @@ from typing import List, Tuple, Optional
 from docsync.models import ChangedSymbol, DocChunk, EvidenceItem, DriftDecision, RepairSuggestion
 from docsync.rag.evidence import format_evidence_text
 from docsync.llm.factory import ChatModelInterface
-from docsync.llm.prompts import DRIFT_JUDGE_V1_SYSTEM, DRIFT_JUDGE_V1_USER
+from docsync.llm.prompts import (
+    DRIFT_JUDGE_V1_SYSTEM,
+    DRIFT_JUDGE_V1_USER,
+    DRIFT_JUDGE_V2_SYSTEM,
+    DRIFT_JUDGE_V2_USER,
+)
 from docsync.drift.repair import generate_llm_repair
 
 
@@ -20,19 +25,29 @@ def judge_drift(
     evidence: List[EvidenceItem],
     chat_model: ChatModelInterface,
     repo_name: str = "repo",
+    prompt_version: str = "V1",
 ) -> Tuple[DriftDecision, Optional[RepairSuggestion]]:
     """Judge if documentation chunk drifts from the code using LLM reasoning."""
     sym = changed_symbol.symbol
     evidence_text = format_evidence_text(evidence)
     valid_ids = {item.id for item in evidence}
 
-    user_prompt = DRIFT_JUDGE_V1_USER.format(
-        repository=repo_name,
-        symbol=sym.name,
-        evidence=evidence_text,
-    )
+    if prompt_version.upper() == "V2":
+        system_prompt = DRIFT_JUDGE_V2_SYSTEM
+        user_prompt = DRIFT_JUDGE_V2_USER.format(
+            repository=repo_name,
+            symbol=sym.name,
+            evidence=evidence_text,
+        )
+    else:
+        system_prompt = DRIFT_JUDGE_V1_SYSTEM
+        user_prompt = DRIFT_JUDGE_V1_USER.format(
+            repository=repo_name,
+            symbol=sym.name,
+            evidence=evidence_text,
+        )
 
-    raw_response = chat_model.complete(DRIFT_JUDGE_V1_SYSTEM, user_prompt)
+    raw_response = chat_model.complete(system_prompt, user_prompt)
     decision = _parse_judge_json(raw_response, valid_ids)
 
     repair = None
@@ -58,6 +73,7 @@ def _parse_judge_json(raw_text: str, valid_ids: set) -> DriftDecision:
             confidence=0.0,
             reason="Model returned invalid JSON format.",
             evidence_ids=[],
+            claims=[],
             repair_needed=False,
         )
 
@@ -73,6 +89,10 @@ def _parse_judge_json(raw_text: str, valid_ids: set) -> DriftDecision:
     # Filter hallucinated evidence IDs
     ev_ids = [eid for eid in data.get("evidence_ids", []) if eid in valid_ids]
 
+    # Extract claims list if present
+    raw_claims = data.get("claims", [])
+    claims = [c for c in raw_claims if isinstance(c, dict)] if isinstance(raw_claims, list) else []
+
     # Guardrail: DRIFT without valid evidence -> downgrade to UNCERTAIN
     if dec_val == "DRIFT" and not ev_ids:
         dec_val = "UNCERTAIN"
@@ -83,5 +103,7 @@ def _parse_judge_json(raw_text: str, valid_ids: set) -> DriftDecision:
         confidence=conf,
         reason=reason,
         evidence_ids=ev_ids,
+        claims=claims,
         repair_needed=(dec_val == "DRIFT"),
     )
+

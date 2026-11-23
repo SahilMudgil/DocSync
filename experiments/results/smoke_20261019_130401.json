@@ -1,0 +1,337 @@
+{
+  "experiment_id": "SMOKE_CHECK",
+  "timestamp": "2026-10-19T13:03:54.374465",
+  "smoke_test": true,
+  "provider": "fake",
+  "model": "gemini-1.5-flash",
+  "split": "dev",
+  "case_count": 6,
+  "methods": {
+    "M1": {
+      "method": "M1",
+      "metrics": {
+        "n": 6,
+        "tp": 1,
+        "fp": 0,
+        "tn": 2,
+        "fn": 3,
+        "precision": 1.0,
+        "recall": 0.25,
+        "f1": 0.4,
+        "accuracy": 0.5,
+        "precision_ci95": [
+          0.2065,
+          1.0
+        ],
+        "recall_ci95": [
+          0.0456,
+          0.6994
+        ],
+        "accuracy_ci95": [
+          0.1876,
+          0.8124
+        ],
+        "latency_seconds": 1.593,
+        "avg_case_latency": 0.2655,
+        "estimated_tokens": 0,
+        "location_accuracy": 0.25,
+        "evidence_coverage": 0.1667
+      },
+      "records": [
+        {
+          "case_id": "CASE-001",
+          "symbol_name": "fetch_data",
+          "label": "DRIFT",
+          "prediction": "DRIFT",
+          "decision": "DRIFT",
+          "confidence": 1.0,
+          "evidence_ids": [
+            "E2",
+            "D1"
+          ],
+          "location_correct": true,
+          "repair_fact_correct": true
+        },
+        {
+          "case_id": "CASE-002",
+          "symbol_name": "fetch_data",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-003",
+          "symbol_name": "fetch_data",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-004",
+          "symbol_name": "fetch_data",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-005",
+          "symbol_name": "test_client",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-006",
+          "symbol_name": "test_client",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        }
+      ]
+    },
+    "M2": {
+      "method": "M2",
+      "metrics": {
+        "n": 6,
+        "tp": 0,
+        "fp": 0,
+        "tn": 2,
+        "fn": 4,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "accuracy": 0.3333,
+        "precision_ci95": [
+          0.0,
+          0.0
+        ],
+        "recall_ci95": [
+          0.0,
+          0.4899
+        ],
+        "accuracy_ci95": [
+          0.0968,
+          0.7
+        ],
+        "latency_seconds": 1.395,
+        "avg_case_latency": 0.2325,
+        "estimated_tokens": 7200,
+        "location_accuracy": 0.0,
+        "evidence_coverage": 0.0
+      },
+      "records": [
+        {
+          "case_id": "CASE-001",
+          "symbol_name": "fetch_data",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-002",
+          "symbol_name": "fetch_data",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-003",
+          "symbol_name": "fetch_data",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-004",
+          "symbol_name": "fetch_data",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-005",
+          "symbol_name": "test_client",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-006",
+          "symbol_name": "test_client",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        }
+      ]
+    },
+    "M3": {
+      "method": "M3",
+      "metrics": {
+        "n": 6,
+        "tp": 0,
+        "fp": 0,
+        "tn": 2,
+        "fn": 4,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "accuracy": 0.3333,
+        "precision_ci95": [
+          0.0,
+          0.0
+        ],
+        "recall_ci95": [
+          0.0,
+          0.4899
+        ],
+        "accuracy_ci95": [
+          0.0968,
+          0.7
+        ],
+        "latency_seconds": 2.752,
+        "avg_case_latency": 0.4587,
+        "estimated_tokens": 5400,
+        "location_accuracy": 0.0,
+        "evidence_coverage": 0.0
+      },
+      "records": [
+        {
+          "case_id": "CASE-001",
+          "symbol_name": "fetch_data",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-002",
+          "symbol_name": "fetch_data",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-003",
+          "symbol_name": "fetch_data",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-004",
+          "symbol_name": "fetch_data",
+          "label": "NO_DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-005",
+          "symbol_name": "test_client",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        },
+        {
+          "case_id": "CASE-006",
+          "symbol_name": "test_client",
+          "label": "DRIFT",
+          "prediction": "NO_DRIFT",
+          "decision": "MATCH",
+          "confidence": 1.0,
+          "evidence_ids": [],
+          "location_correct": false,
+          "repair_fact_correct": null
+        }
+      ]
+    }
+  },
+  "retrieval_comparison": {
+    "BM25": {
+      "Recall@1": 0.6667,
+      "Recall@3": 0.6667,
+      "Recall@5": 1.0,
+      "MRR": 0.7333
+    },
+    "FAISS": {
+      "Recall@1": 0.6667,
+      "Recall@3": 0.6667,
+      "Recall@5": 1.0,
+      "MRR": 0.7333
+    },
+    "Hybrid-2 (BM25+FAISS)": {
+      "Recall@1": 0.6667,
+      "Recall@3": 1.0,
+      "Recall@5": 1.0,
+      "MRR": 0.8333
+    },
+    "Hybrid-3 (BM25+FAISS+Search)": {
+      "Recall@1": 0.6667,
+      "Recall@3": 1.0,
+      "Recall@5": 1.0,
+      "MRR": 0.8333
+    }
+  }
+}

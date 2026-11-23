@@ -58,6 +58,7 @@ class DriftDecision(BaseModel):
     confidence: float = Field(ge=0.0, le=1.0, default=0.5)
     reason: str
     evidence_ids: List[str] = Field(default_factory=list)
+    claims: List[Dict[str, str]] = Field(default_factory=list)
     repair_needed: bool = False
 
 

@@ -3,8 +3,8 @@
 ## Usage Guide
 The `fetch_data` function connects to remote endpoints.
 
-The `timeout` parameter defaults to 20 seconds.
-The `retries` parameter defaults to 2 attempts.
+The `timeout` parameter defaults to 40 seconds.
+The `retries` parameter defaults to 4 attempts.
 
 ```python
 import client

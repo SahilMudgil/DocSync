@@ -1,0 +1,16 @@
+# DocSync Evaluation Configuration — Smoke Test
+# Used for automated pipeline and plumbing validation offline.
+experiment_id: SMOKE_CHECK
+smoke_test: true
+split: dev
+cases_path: experiments/cases/smoke_cases.json
+out_dir: experiments/results
+reports_dir: experiments/reports
+
+llm:
+  provider: fake
+  model: gemini-1.5-flash
+
+retrieval:
+  top_k: 3
+  rrf_k: 60

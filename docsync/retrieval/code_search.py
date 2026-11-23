@@ -58,12 +58,17 @@ class SourcegraphProvider:
     """Sourcegraph API adapter with local fallback."""
 
     def __init__(self, url: str, token: str, local_fallback: LocalSearchProvider):
-        self.url = url.rstrip("/")
-        self.token = token
+        self.url = (url or "").rstrip("/")
+        self.token = token or ""
         self.local_fallback = local_fallback
+        self.sourcegraph_used: bool = False
+
+    def is_configured(self) -> bool:
+        """Check if Sourcegraph URL and authentication token are provided."""
+        return bool(self.url and self.token)
 
     def search(self, query: str, limit: int = 5) -> List[SearchHit]:
-        if not self.url or not self.token:
+        if not self.is_configured():
             return self.local_fallback.search(query, limit)
 
         # GraphQL query for Sourcegraph search
@@ -94,26 +99,30 @@ class SourcegraphProvider:
             )
             if resp.status_code == 200:
                 data = resp.json()
-                hits = []
-                results = data.get("data", {}).get("search", {}).get("results", {}).get("results", [])
-                for match in results:
-                    path = match.get("file", {}).get("path", "")
-                    for lm in match.get("lineMatches", []):
-                        hits.append(
-                            SearchHit(
-                                file=path,
-                                line=lm.get("lineNumber", 1),
-                                snippet=lm.get("preview", "").strip(),
-                                source="sourcegraph",
-                                score=1.0,
+                if "errors" not in data:
+                    hits = []
+                    results = data.get("data", {}).get("search", {}).get("results", {}).get("results", [])
+                    for match in results:
+                        path = match.get("file", {}).get("path", "")
+                        for lm in match.get("lineMatches", []):
+                            hits.append(
+                                SearchHit(
+                                    file=path,
+                                    line=lm.get("lineNumber", 1),
+                                    snippet=lm.get("preview", "").strip(),
+                                    source="sourcegraph",
+                                    score=1.0,
+                                )
                             )
-                        )
-                        if len(hits) >= limit:
-                            return hits
-                if hits:
-                    return hits
+                            if len(hits) >= limit:
+                                self.sourcegraph_used = True
+                                return hits
+                    if hits:
+                        self.sourcegraph_used = True
+                        return hits
         except Exception:
             pass
 
-        # Fallback to local search if Sourcegraph unreachable
+        # Fallback to local search if Sourcegraph unreachable or returned error
         return self.local_fallback.search(query, limit)
+

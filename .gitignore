@@ -4,5 +4,10 @@ __pycache__/
 .pytest_cache/
 .docsync_cache/
 .env
+.env.local
+.streamlit/secrets.toml
 demo_output/*.json
 demo_output/*.md
+*.log
+.DS_Store
+Thumbs.db

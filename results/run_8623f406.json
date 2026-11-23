@@ -1,0 +1,23 @@
+{
+  "run_id": "8623f406",
+  "repo": "DocSync",
+  "base": "d1b6646",
+  "head": "fd807c3",
+  "mode": "fast",
+  "provider": "ollama",
+  "model": "deepseek-coder:6.7b",
+  "retrieval_mode": "hybrid (BM25 + Embeddings + RRF)",
+  "sourcegraph_used": false,
+  "prompt_versions": {
+    "judge": "DRIFT_JUDGE_V1",
+    "repair": "REPAIR_V1"
+  },
+  "items": [],
+  "timings": {
+    "total_seconds": 0.811
+  },
+  "token_usage": {
+    "estimated_tokens": 0
+  },
+  "warnings": []
+}

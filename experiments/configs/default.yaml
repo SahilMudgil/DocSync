@@ -1,0 +1,16 @@
+# DocSync Evaluation Configuration — Standard Experiment Runner
+# Used by students for running empirical evaluations E1-E6 on dev/test splits.
+experiment_id: E1_E2_E6_BENCHMARK
+smoke_test: false
+split: dev # or test
+cases_path: experiments/cases/cases.json
+out_dir: experiments/results
+reports_dir: experiments/reports
+
+llm:
+  provider: fake # switch to "gemini" or "ollama" for live API experiments
+  model: gemini-1.5-flash
+
+retrieval:
+  top_k: 3
+  rrf_k: 60

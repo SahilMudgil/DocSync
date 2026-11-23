@@ -8,6 +8,7 @@ Orchestrates:
 5. Documentation repair and example code validation
 """
 
+import os
 import time
 import uuid
 from pathlib import Path
@@ -18,7 +19,7 @@ from docsync.ingest.code_parser import parse_python_file
 from docsync.ingest.doc_parser import parse_doc_file, extract_docstring_chunks
 from docsync.retrieval.lexical import BM25Retriever
 from docsync.retrieval.embeddings import SimpleVectorStore
-from docsync.retrieval.code_search import LocalSearchProvider
+from docsync.retrieval.code_search import LocalSearchProvider, SourcegraphProvider
 from docsync.retrieval.hybrid import hybrid_search
 from docsync.rag.evidence import build_evidence
 from docsync.llm.factory import get_chat_model
@@ -56,7 +57,7 @@ def run_check(
         doc_chunks.extend(extract_docstring_chunks(syms))
 
     for doc_file in list(repo_root.rglob("*.md")) + list(repo_root.rglob("*.rst")):
-        if any(ign in str(doc_file) for ign in ["venv", ".git", "docsync_cache"]):
+        if any(ign in str(doc_file).lower() for ign in ["venv", ".git", "docsync_cache", "demo_output", "results", ".system_generated", "evaluation.md", "synopsis.md", "timeline.md", "master_plan", "progress_report", "experiments"]):
             continue
         doc_chunks.extend(parse_doc_file(str(doc_file), repo_root=str(repo_root)))
 
@@ -76,7 +77,17 @@ def run_check(
     # 3. Setup retrievers
     lexical = BM25Retriever(doc_chunks)
     embeddings = SimpleVectorStore(doc_chunks)
-    code_search = LocalSearchProvider(str(repo_root))
+    local_search = LocalSearchProvider(str(repo_root))
+
+    retrieval_cfg = config.get("retrieval", {})
+    use_sourcegraph = retrieval_cfg.get("use_sourcegraph", False)
+    sg_url = os.environ.get("SOURCEGRAPH_URL") or retrieval_cfg.get("sourcegraph_url", "")
+    sg_token = os.environ.get("SOURCEGRAPH_TOKEN") or retrieval_cfg.get("sourcegraph_token", "")
+
+    if use_sourcegraph or (sg_url and sg_token):
+        code_search = SourcegraphProvider(url=sg_url, token=sg_token, local_fallback=local_search)
+    else:
+        code_search = local_search
 
     # 4. LLM setup
     llm_cfg = config.get("llm", {})
@@ -90,9 +101,37 @@ def run_check(
 
     # 5. Process each changed symbol
     for cs in changed_symbols:
-        candidate_docs = hybrid_search(
-            cs, doc_chunks, lexical, embeddings, code_search, top_k=top_k, rrf_k=rrf_k
+        candidates: List[DocChunk] = []
+
+        # Priority 1: Retrieve top external documentation via hybrid search
+        retrieved_docs = hybrid_search(
+            cs, doc_chunks, lexical, embeddings, code_search, top_k=top_k + 3, rrf_k=rrf_k
         )
+        for rd in retrieved_docs:
+            if rd.kind != "docstring":
+                is_meta = any(m in rd.file.lower() for m in ["evaluation.md", "synopsis.md", "timeline.md", "master_plan", "progress_report", "latest.md", "explain", "experiments"])
+                if not is_meta and not any(c.file == rd.file and c.start_line == rd.start_line for c in candidates):
+                    candidates.append(rd)
+                    break  # Pair with the top relevant external documentation file
+
+        # Priority 2: Always evaluate the symbol's own internal docstring as well
+        if cs.symbol.docstring and cs.symbol.docstring.strip():
+            internal_doc_chunk = DocChunk(
+                id=f"docstring_{cs.symbol.file}_{cs.symbol.name}",
+                file=cs.symbol.file,
+                start_line=cs.symbol.start_line,
+                end_line=cs.symbol.end_line,
+                kind="docstring",
+                text=cs.symbol.docstring.strip(),
+                mentioned_symbols=[cs.symbol.name],
+            )
+            candidates.append(internal_doc_chunk)
+
+        # If no candidates found, include top retrieved doc as fallback
+        if not candidates and retrieved_docs:
+            candidates.append(retrieved_docs[0])
+
+        candidate_docs = candidates
 
         for doc in candidate_docs:
             callers = code_search.search(f"{cs.symbol.name}(", limit=3)
@@ -129,7 +168,7 @@ def run_check(
         provider=provider,
         model=model_name,
         retrieval_mode="hybrid (BM25 + Embeddings + RRF)",
-        sourcegraph_used=False,
+        sourcegraph_used=getattr(code_search, "sourcegraph_used", False),
         prompt_versions={"judge": "DRIFT_JUDGE_V1", "repair": "REPAIR_V1"},
         items=items,
         timings={"total_seconds": round(elapsed, 3)},

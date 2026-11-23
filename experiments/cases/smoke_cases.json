@@ -1,0 +1,164 @@
+[
+  {
+    "case_id": "CASE-001",
+    "repo": "examples/demo_project",
+    "symbol_name": "fetch_data",
+    "file": "examples/demo_project/client.py",
+    "line_range": [
+      1,
+      12
+    ],
+    "old_code": "def fetch_data(url: str, timeout: int = 30) -> dict:\n    \"\"\"Fetch JSON data from a remote URL.\n    Args:\n        url: Target endpoint URL.\n        timeout: Request timeout in seconds. Defaults to 30.\n    Returns:\n        Parsed JSON response dictionary.\n    \"\"\"\n    res = {'status': 'ok', 'url': url, 'timeout': timeout}\n    return res\n",
+    "new_code": "def fetch_data(url: str, timeout: int = 60) -> dict:\n    \"\"\"Fetch JSON data from a remote URL.\n    Args:\n        url: Target endpoint URL.\n        timeout: Request timeout in seconds. Defaults to 30.\n    Returns:\n        Parsed JSON response dictionary.\n    \"\"\"\n    res = {'status': 'ok', 'url': url, 'timeout': timeout}\n    return res\n",
+    "gold_doc_file": "examples/demo_project/docs/usage.md",
+    "gold_doc_lines": [
+      3,
+      8
+    ],
+    "gold_doc_text": "The timeout defaults to 30 seconds unless explicitly overridden by the caller.",
+    "gold_doc_kind": "doc_file",
+    "label": "DRIFT",
+    "mutation_type": "default_changed",
+    "expected_fact": "60",
+    "split": "dev",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-002",
+    "repo": "examples/demo_project",
+    "symbol_name": "fetch_data",
+    "file": "examples/demo_project/client.py",
+    "line_range": [
+      1,
+      12
+    ],
+    "old_code": "def fetch_data(url: str, timeout: int = 30) -> dict:\n    \"\"\"Fetch JSON data from a remote URL.\n    Args:\n        url: Target endpoint URL.\n        timeout: Request timeout in seconds. Defaults to 30.\n    Returns:\n        Parsed JSON response dictionary.\n    \"\"\"\n    res = {'status': 'ok', 'url': url, 'timeout': timeout}\n    return res\n",
+    "new_code": "def fetch_data(url: str, request_timeout: int = 30) -> dict:\n    \"\"\"Fetch JSON data from a remote URL.\n    Args:\n        url: Target endpoint URL.\n        request_timeout: Request request_timeout in seconds. Defaults to 30.\n    Returns:\n        Parsed JSON response dictionary.\n    \"\"\"\n    res = {'status': 'ok', 'url': url, 'request_timeout': request_timeout}\n    return res\n",
+    "gold_doc_file": "examples/demo_project/docs/usage.md",
+    "gold_doc_lines": [
+      3,
+      8
+    ],
+    "gold_doc_text": "The timeout defaults to 30 seconds unless explicitly overridden by the caller.",
+    "gold_doc_kind": "doc_file",
+    "label": "DRIFT",
+    "mutation_type": "param_renamed",
+    "expected_fact": "request_timeout",
+    "split": "dev",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-003",
+    "repo": "examples/demo_project",
+    "symbol_name": "fetch_data",
+    "file": "examples/demo_project/client.py",
+    "line_range": [
+      1,
+      12
+    ],
+    "old_code": "def fetch_data(url: str, timeout: int = 30) -> dict:\n    \"\"\"Fetch JSON data from a remote URL.\n    Args:\n        url: Target endpoint URL.\n        timeout: Request timeout in seconds. Defaults to 30.\n    Returns:\n        Parsed JSON response dictionary.\n    \"\"\"\n    res = {'status': 'ok', 'url': url, 'timeout': timeout}\n    return res\n",
+    "new_code": "def fetch_data(url: str, timeout: int = 30) -> dict:\n    \"\"\"Fetch JSON data from a remote URL.\n    Args:\n        url: Target endpoint URL.\n        timeout: Request timeout in seconds. Defaults to 30.\n    Returns:\n        Parsed JSON response dictionary.\n    \"\"\"\n    response_data = {'status': 'ok', 'url': url, 'timeout': timeout}\n    return response_data\n",
+    "gold_doc_file": "examples/demo_project/docs/usage.md",
+    "gold_doc_lines": [
+      3,
+      8
+    ],
+    "gold_doc_text": "The timeout defaults to 30 seconds unless explicitly overridden by the caller.",
+    "gold_doc_kind": "doc_file",
+    "label": "NO_DRIFT",
+    "mutation_type": "local_rename",
+    "expected_fact": null,
+    "split": "dev",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-004",
+    "repo": "examples/demo_project",
+    "symbol_name": "fetch_data",
+    "file": "examples/demo_project/client.py",
+    "line_range": [
+      1,
+      12
+    ],
+    "old_code": "def fetch_data(url: str, timeout: int = 30) -> dict:\n    \"\"\"Fetch JSON data from a remote URL.\n    Args:\n        url: Target endpoint URL.\n        timeout: Request timeout in seconds. Defaults to 30.\n    Returns:\n        Parsed JSON response dictionary.\n    \"\"\"\n    res = {'status': 'ok', 'url': url, 'timeout': timeout}\n    return res\n",
+    "new_code": "def fetch_data(url: str, timeout: int = 30) -> dict:\n    # Refactored for performance and internal clarity\n    \"\"\"Fetch JSON data from a remote URL.\n    Args:\n        url: Target endpoint URL.\n        timeout: Request timeout in seconds. Defaults to 30.\n    Returns:\n        Parsed JSON response dictionary.\n    \"\"\"\n    res = {'status': 'ok', 'url': url, 'timeout': timeout}\n    return res\n",
+    "gold_doc_file": "examples/demo_project/docs/usage.md",
+    "gold_doc_lines": [
+      3,
+      8
+    ],
+    "gold_doc_text": "The timeout defaults to 30 seconds unless explicitly overridden by the caller.",
+    "gold_doc_kind": "doc_file",
+    "label": "NO_DRIFT",
+    "mutation_type": "comment_whitespace",
+    "expected_fact": null,
+    "split": "test",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-005",
+    "repo": "pallets/flask",
+    "symbol_name": "test_client",
+    "file": "src/flask/app.py",
+    "line_range": [
+      120,
+      145
+    ],
+    "old_code": "def test_client(self, use_cookies: bool = True):\n    \"\"\"Creates a test client for this application.\n    :param use_cookies: if set to True, cookies are preserved across requests.\n    \"\"\"\n    client_inst = self.test_client_class(self, use_cookies=use_cookies)\n    return client_inst\n",
+    "new_code": "def test_client(self, use_cookies: bool = False):\n    \"\"\"Creates a test client for this application.\n    :param use_cookies: if set to True, cookies are preserved across requests.\n    \"\"\"\n    client_inst = self.test_client_class(self, use_cookies=use_cookies)\n    return client_inst\n",
+    "gold_doc_file": "src/flask/app.py",
+    "gold_doc_lines": [
+      121,
+      124
+    ],
+    "gold_doc_text": ":param use_cookies: if set to True, cookies are preserved across requests.",
+    "gold_doc_kind": "docstring",
+    "label": "DRIFT",
+    "mutation_type": "default_changed",
+    "expected_fact": "False",
+    "split": "test",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-006",
+    "repo": "pallets/flask",
+    "symbol_name": "test_client",
+    "file": "src/flask/app.py",
+    "line_range": [
+      120,
+      145
+    ],
+    "old_code": "def test_client(self, use_cookies: bool = True):\n    \"\"\"Creates a test client for this application.\n    :param use_cookies: if set to True, cookies are preserved across requests.\n    \"\"\"\n    client_inst = self.test_client_class(self, use_cookies=use_cookies)\n    return client_inst\n",
+    "new_code": "def test_client(self, enable_cookies: bool = True):\n    \"\"\"Creates a test client for this application.\n    :param enable_cookies: if set to True, cookies are preserved across requests.\n    \"\"\"\n    client_inst = self.test_client_class(self, enable_cookies=enable_cookies)\n    return client_inst\n",
+    "gold_doc_file": "src/flask/app.py",
+    "gold_doc_lines": [
+      121,
+      124
+    ],
+    "gold_doc_text": ":param use_cookies: if set to True, cookies are preserved across requests.",
+    "gold_doc_kind": "docstring",
+    "label": "DRIFT",
+    "mutation_type": "param_renamed",
+    "expected_fact": "enable_cookies",
+    "split": "test",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  }
+]

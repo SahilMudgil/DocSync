@@ -1,0 +1,866 @@
+[
+  {
+    "case_id": "CASE-001",
+    "repo": "examples/demo_project",
+    "symbol_name": "fetch_data",
+    "file": "examples/demo_project/client.py",
+    "line_range": [
+      1,
+      12
+    ],
+    "old_code": "def fetch_data(url: str, timeout: int = 30) -> dict:\n    \"\"\"Fetch JSON data from a remote URL.\n    Args:\n        url: Target endpoint URL.\n        timeout: Request timeout in seconds. Defaults to 30.\n    Returns:\n        Parsed JSON response dictionary.\n    \"\"\"\n    res = {'status': 'ok', 'url': url, 'timeout': timeout}\n    return res\n",
+    "new_code": "def fetch_data(url: str, timeout: int = 60) -> dict:\n    \"\"\"Fetch JSON data from a remote URL.\n    Args:\n        url: Target endpoint URL.\n        timeout: Request timeout in seconds. Defaults to 30.\n    Returns:\n        Parsed JSON response dictionary.\n    \"\"\"\n    res = {'status': 'ok', 'url': url, 'timeout': timeout}\n    return res\n",
+    "gold_doc_file": "examples/demo_project/docs/usage.md",
+    "gold_doc_lines": [
+      3,
+      8
+    ],
+    "gold_doc_text": "The timeout defaults to 30 seconds unless explicitly overridden by the caller.",
+    "gold_doc_kind": "doc_file",
+    "label": "DRIFT",
+    "mutation_type": "default_changed",
+    "expected_fact": "60",
+    "split": "dev",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-002",
+    "repo": "examples/demo_project",
+    "symbol_name": "fetch_data",
+    "file": "examples/demo_project/client.py",
+    "line_range": [
+      1,
+      12
+    ],
+    "old_code": "def fetch_data(url: str, timeout: int = 30) -> dict:\n    \"\"\"Fetch JSON data from a remote URL.\n    Args:\n        url: Target endpoint URL.\n        timeout: Request timeout in seconds. Defaults to 30.\n    Returns:\n        Parsed JSON response dictionary.\n    \"\"\"\n    res = {'status': 'ok', 'url': url, 'timeout': timeout}\n    return res\n",
+    "new_code": "def fetch_data(url: str, request_timeout: int = 30) -> dict:\n    \"\"\"Fetch JSON data from a remote URL.\n    Args:\n        url: Target endpoint URL.\n        request_timeout: Request request_timeout in seconds. Defaults to 30.\n    Returns:\n        Parsed JSON response dictionary.\n    \"\"\"\n    res = {'status': 'ok', 'url': url, 'request_timeout': request_timeout}\n    return res\n",
+    "gold_doc_file": "examples/demo_project/docs/usage.md",
+    "gold_doc_lines": [
+      3,
+      8
+    ],
+    "gold_doc_text": "The timeout defaults to 30 seconds unless explicitly overridden by the caller.",
+    "gold_doc_kind": "doc_file",
+    "label": "DRIFT",
+    "mutation_type": "param_renamed",
+    "expected_fact": "request_timeout",
+    "split": "dev",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-003",
+    "repo": "examples/demo_project",
+    "symbol_name": "fetch_data",
+    "file": "examples/demo_project/client.py",
+    "line_range": [
+      1,
+      12
+    ],
+    "old_code": "def fetch_data(url: str, timeout: int = 30) -> dict:\n    \"\"\"Fetch JSON data from a remote URL.\n    Args:\n        url: Target endpoint URL.\n        timeout: Request timeout in seconds. Defaults to 30.\n    Returns:\n        Parsed JSON response dictionary.\n    \"\"\"\n    res = {'status': 'ok', 'url': url, 'timeout': timeout}\n    return res\n",
+    "new_code": "def fetch_data(url: str, timeout: int = 30) -> dict:\n    \"\"\"Fetch JSON data from a remote URL.\n    Args:\n        url: Target endpoint URL.\n        timeout: Request timeout in seconds. Defaults to 30.\n    Returns:\n        Parsed JSON response dictionary.\n    \"\"\"\n    response_data = {'status': 'ok', 'url': url, 'timeout': timeout}\n    return response_data\n",
+    "gold_doc_file": "examples/demo_project/docs/usage.md",
+    "gold_doc_lines": [
+      3,
+      8
+    ],
+    "gold_doc_text": "The timeout defaults to 30 seconds unless explicitly overridden by the caller.",
+    "gold_doc_kind": "doc_file",
+    "label": "NO_DRIFT",
+    "mutation_type": "local_rename",
+    "expected_fact": null,
+    "split": "dev",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-004",
+    "repo": "examples/demo_project",
+    "symbol_name": "fetch_data",
+    "file": "examples/demo_project/client.py",
+    "line_range": [
+      1,
+      12
+    ],
+    "old_code": "def fetch_data(url: str, timeout: int = 30) -> dict:\n    \"\"\"Fetch JSON data from a remote URL.\n    Args:\n        url: Target endpoint URL.\n        timeout: Request timeout in seconds. Defaults to 30.\n    Returns:\n        Parsed JSON response dictionary.\n    \"\"\"\n    res = {'status': 'ok', 'url': url, 'timeout': timeout}\n    return res\n",
+    "new_code": "def fetch_data(url: str, timeout: int = 30) -> dict:\n    # Refactored for performance and internal clarity\n    \"\"\"Fetch JSON data from a remote URL.\n    Args:\n        url: Target endpoint URL.\n        timeout: Request timeout in seconds. Defaults to 30.\n    Returns:\n        Parsed JSON response dictionary.\n    \"\"\"\n    res = {'status': 'ok', 'url': url, 'timeout': timeout}\n    return res\n",
+    "gold_doc_file": "examples/demo_project/docs/usage.md",
+    "gold_doc_lines": [
+      3,
+      8
+    ],
+    "gold_doc_text": "The timeout defaults to 30 seconds unless explicitly overridden by the caller.",
+    "gold_doc_kind": "doc_file",
+    "label": "NO_DRIFT",
+    "mutation_type": "comment_whitespace",
+    "expected_fact": null,
+    "split": "test",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-005",
+    "repo": "pallets/flask",
+    "symbol_name": "test_client",
+    "file": "src/flask/app.py",
+    "line_range": [
+      120,
+      145
+    ],
+    "old_code": "def test_client(self, use_cookies: bool = True):\n    \"\"\"Creates a test client for this application.\n    :param use_cookies: if set to True, cookies are preserved across requests.\n    \"\"\"\n    client_inst = self.test_client_class(self, use_cookies=use_cookies)\n    return client_inst\n",
+    "new_code": "def test_client(self, use_cookies: bool = False):\n    \"\"\"Creates a test client for this application.\n    :param use_cookies: if set to True, cookies are preserved across requests.\n    \"\"\"\n    client_inst = self.test_client_class(self, use_cookies=use_cookies)\n    return client_inst\n",
+    "gold_doc_file": "src/flask/app.py",
+    "gold_doc_lines": [
+      121,
+      124
+    ],
+    "gold_doc_text": ":param use_cookies: if set to True, cookies are preserved across requests.",
+    "gold_doc_kind": "docstring",
+    "label": "DRIFT",
+    "mutation_type": "default_changed",
+    "expected_fact": "False",
+    "split": "test",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-006",
+    "repo": "pallets/flask",
+    "symbol_name": "test_client",
+    "file": "src/flask/app.py",
+    "line_range": [
+      120,
+      145
+    ],
+    "old_code": "def test_client(self, use_cookies: bool = True):\n    \"\"\"Creates a test client for this application.\n    :param use_cookies: if set to True, cookies are preserved across requests.\n    \"\"\"\n    client_inst = self.test_client_class(self, use_cookies=use_cookies)\n    return client_inst\n",
+    "new_code": "def test_client(self, enable_cookies: bool = True):\n    \"\"\"Creates a test client for this application.\n    :param enable_cookies: if set to True, cookies are preserved across requests.\n    \"\"\"\n    client_inst = self.test_client_class(self, enable_cookies=enable_cookies)\n    return client_inst\n",
+    "gold_doc_file": "src/flask/app.py",
+    "gold_doc_lines": [
+      121,
+      124
+    ],
+    "gold_doc_text": ":param use_cookies: if set to True, cookies are preserved across requests.",
+    "gold_doc_kind": "docstring",
+    "label": "DRIFT",
+    "mutation_type": "param_renamed",
+    "expected_fact": "enable_cookies",
+    "split": "test",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-007",
+    "repo": "pallets/flask",
+    "symbol_name": "test_client",
+    "file": "src/flask/app.py",
+    "line_range": [
+      120,
+      145
+    ],
+    "old_code": "def test_client(self, use_cookies: bool = True):\n    \"\"\"Creates a test client for this application.\n    :param use_cookies: if set to True, cookies are preserved across requests.\n    \"\"\"\n    client_inst = self.test_client_class(self, use_cookies=use_cookies)\n    return client_inst\n",
+    "new_code": "def test_client(self, use_cookies: bool = True):\n    \"\"\"Creates a test client for this application.\n    :param use_cookies: if set to True, cookies are preserved across requests.\n    \"\"\"\n    active_client = self.test_client_class(self, use_cookies=use_cookies)\n    return active_client\n",
+    "gold_doc_file": "src/flask/app.py",
+    "gold_doc_lines": [
+      121,
+      124
+    ],
+    "gold_doc_text": ":param use_cookies: if set to True, cookies are preserved across requests.",
+    "gold_doc_kind": "docstring",
+    "label": "NO_DRIFT",
+    "mutation_type": "local_rename",
+    "expected_fact": null,
+    "split": "dev",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-008",
+    "repo": "pallets/flask",
+    "symbol_name": "test_client",
+    "file": "src/flask/app.py",
+    "line_range": [
+      120,
+      145
+    ],
+    "old_code": "def test_client(self, use_cookies: bool = True):\n    \"\"\"Creates a test client for this application.\n    :param use_cookies: if set to True, cookies are preserved across requests.\n    \"\"\"\n    client_inst = self.test_client_class(self, use_cookies=use_cookies)\n    return client_inst\n",
+    "new_code": "def test_client(self, use_cookies: bool = True):\n    # Refactored for performance and internal clarity\n    \"\"\"Creates a test client for this application.\n    :param use_cookies: if set to True, cookies are preserved across requests.\n    \"\"\"\n    client_inst = self.test_client_class(self, use_cookies=use_cookies)\n    return client_inst\n",
+    "gold_doc_file": "src/flask/app.py",
+    "gold_doc_lines": [
+      121,
+      124
+    ],
+    "gold_doc_text": ":param use_cookies: if set to True, cookies are preserved across requests.",
+    "gold_doc_kind": "docstring",
+    "label": "NO_DRIFT",
+    "mutation_type": "comment_whitespace",
+    "expected_fact": null,
+    "split": "dev",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-009",
+    "repo": "pallets/flask",
+    "symbol_name": "send_from_directory",
+    "file": "src/flask/helpers.py",
+    "line_range": [
+      200,
+      230
+    ],
+    "old_code": "def send_from_directory(directory: str, path: str, max_age: int = 3600):\n    \"\"\"Send a file from within a directory using Werkzeug.\n    :param directory: Base folder containing files.\n    :param path: Subpath to file.\n    :param max_age: Cache-Control header max-age. Defaults to 3600.\n    \"\"\"\n    if not directory:\n        raise ValueError('Directory path must be specified')\n    cache_seconds = max_age\n    return {'directory': directory, 'path': path, 'cache': cache_seconds}\n",
+    "new_code": "def send_from_directory(directory: str, path: str, max_age: int = 86400):\n    \"\"\"Send a file from within a directory using Werkzeug.\n    :param directory: Base folder containing files.\n    :param path: Subpath to file.\n    :param max_age: Cache-Control header max-age. Defaults to 3600.\n    \"\"\"\n    if not directory:\n        raise ValueError('Directory path must be specified')\n    cache_seconds = max_age\n    return {'directory': directory, 'path': path, 'cache': cache_seconds}\n",
+    "gold_doc_file": "docs/api.rst",
+    "gold_doc_lines": [
+      50,
+      56
+    ],
+    "gold_doc_text": "The send_from_directory helper sets Cache-Control max-age defaulting to 3600 seconds.",
+    "gold_doc_kind": "doc_file",
+    "label": "DRIFT",
+    "mutation_type": "default_changed",
+    "expected_fact": "86400",
+    "split": "dev",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-010",
+    "repo": "pallets/flask",
+    "symbol_name": "send_from_directory",
+    "file": "src/flask/helpers.py",
+    "line_range": [
+      200,
+      230
+    ],
+    "old_code": "def send_from_directory(directory: str, path: str, max_age: int = 3600):\n    \"\"\"Send a file from within a directory using Werkzeug.\n    :param directory: Base folder containing files.\n    :param path: Subpath to file.\n    :param max_age: Cache-Control header max-age. Defaults to 3600.\n    \"\"\"\n    if not directory:\n        raise ValueError('Directory path must be specified')\n    cache_seconds = max_age\n    return {'directory': directory, 'path': path, 'cache': cache_seconds}\n",
+    "new_code": "def send_from_directory(directory: str, path: str, max_age: int = 3600):\n    \"\"\"Send a file from within a directory using Werkzeug.\n    :param directory: Base folder containing files.\n    :param path: Subpath to file.\n    :param max_age: Cache-Control header max-age. Defaults to 3600.\n    \"\"\"\n    if not directory:\n        raise KeyError('Directory path must be specified')\n    cache_seconds = max_age\n    return {'directory': directory, 'path': path, 'cache': cache_seconds}\n",
+    "gold_doc_file": "docs/api.rst",
+    "gold_doc_lines": [
+      50,
+      56
+    ],
+    "gold_doc_text": "The send_from_directory helper sets Cache-Control max-age defaulting to 3600 seconds.",
+    "gold_doc_kind": "doc_file",
+    "label": "DRIFT",
+    "mutation_type": "exception_changed",
+    "expected_fact": "KeyError",
+    "split": "dev",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-011",
+    "repo": "pallets/flask",
+    "symbol_name": "send_from_directory",
+    "file": "src/flask/helpers.py",
+    "line_range": [
+      200,
+      230
+    ],
+    "old_code": "def send_from_directory(directory: str, path: str, max_age: int = 3600):\n    \"\"\"Send a file from within a directory using Werkzeug.\n    :param directory: Base folder containing files.\n    :param path: Subpath to file.\n    :param max_age: Cache-Control header max-age. Defaults to 3600.\n    \"\"\"\n    if not directory:\n        raise ValueError('Directory path must be specified')\n    cache_seconds = max_age\n    return {'directory': directory, 'path': path, 'cache': cache_seconds}\n",
+    "new_code": "def send_from_directory(directory: str, path: str, max_age: int = 3600):\n    \"\"\"Send a file from within a directory using Werkzeug.\n    :param directory: Base folder containing files.\n    :param path: Subpath to file.\n    :param max_age: Cache-Control header max-age. Defaults to 3600.\n    \"\"\"\n    if not directory:\n        raise ValueError('Directory path must be specified')\n    effective_cache_time = max_age\n    return {'directory': directory, 'path': path, 'cache': effective_cache_time}\n",
+    "gold_doc_file": "docs/api.rst",
+    "gold_doc_lines": [
+      50,
+      56
+    ],
+    "gold_doc_text": "The send_from_directory helper sets Cache-Control max-age defaulting to 3600 seconds.",
+    "gold_doc_kind": "doc_file",
+    "label": "NO_DRIFT",
+    "mutation_type": "local_rename",
+    "expected_fact": null,
+    "split": "test",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-012",
+    "repo": "pallets/flask",
+    "symbol_name": "send_from_directory",
+    "file": "src/flask/helpers.py",
+    "line_range": [
+      200,
+      230
+    ],
+    "old_code": "def send_from_directory(directory: str, path: str, max_age: int = 3600):\n    \"\"\"Send a file from within a directory using Werkzeug.\n    :param directory: Base folder containing files.\n    :param path: Subpath to file.\n    :param max_age: Cache-Control header max-age. Defaults to 3600.\n    \"\"\"\n    if not directory:\n        raise ValueError('Directory path must be specified')\n    cache_seconds = max_age\n    return {'directory': directory, 'path': path, 'cache': cache_seconds}\n",
+    "new_code": "def send_from_directory(directory: str, path: str, max_age: int = 3600):\n    _default_cache = 3600\n    \"\"\"Send a file from within a directory using Werkzeug.\n    :param directory: Base folder containing files.\n    :param path: Subpath to file.\n    :param max_age: Cache-Control header max-age. Defaults to 3600.\n    \"\"\"\n    if not directory:\n        raise ValueError('Directory path must be specified')\n    cache_seconds = max_age\n    return {'directory': directory, 'path': path, 'cache': cache_seconds}\n",
+    "gold_doc_file": "docs/api.rst",
+    "gold_doc_lines": [
+      50,
+      56
+    ],
+    "gold_doc_text": "The send_from_directory helper sets Cache-Control max-age defaulting to 3600 seconds.",
+    "gold_doc_kind": "doc_file",
+    "label": "NO_DRIFT",
+    "mutation_type": "temp_variable",
+    "expected_fact": null,
+    "split": "dev",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-013",
+    "repo": "pallets/flask",
+    "symbol_name": "flash",
+    "file": "src/flask/helpers.py",
+    "line_range": [
+      310,
+      335
+    ],
+    "old_code": "def flash(message: str, category: str = 'message') -> None:\n    \"\"\"Flashes a message to the next request.\n    :param message: The message text to be flashed.\n    :param category: The category under which message is grouped. Defaults to 'message'.\n    \"\"\"\n    session_flashes = session.setdefault('_flashes', [])\n    session_flashes.append((category, message))\n",
+    "new_code": "def flash(message: str, category: str = 'info') -> None:\n    \"\"\"Flashes a message to the next request.\n    :param message: The message text to be flashed.\n    :param category: The category under which message is grouped. Defaults to 'message'.\n    \"\"\"\n    session_flashes = session.setdefault('_flashes', [])\n    session_flashes.append((category, message))\n",
+    "gold_doc_file": "src/flask/helpers.py",
+    "gold_doc_lines": [
+      312,
+      315
+    ],
+    "gold_doc_text": ":param category: The category under which message is grouped. Defaults to 'message'.",
+    "gold_doc_kind": "docstring",
+    "label": "DRIFT",
+    "mutation_type": "default_changed",
+    "expected_fact": "'info'",
+    "split": "test",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-014",
+    "repo": "pallets/flask",
+    "symbol_name": "flash",
+    "file": "src/flask/helpers.py",
+    "line_range": [
+      310,
+      335
+    ],
+    "old_code": "def flash(message: str, category: str = 'message') -> None:\n    \"\"\"Flashes a message to the next request.\n    :param message: The message text to be flashed.\n    :param category: The category under which message is grouped. Defaults to 'message'.\n    \"\"\"\n    session_flashes = session.setdefault('_flashes', [])\n    session_flashes.append((category, message))\n",
+    "new_code": "def flash(message: str, flash_category: str = 'message') -> None:\n    \"\"\"Flashes a message to the next request.\n    :param message: The message text to be flashed.\n    :param flash_category: The flash_category under which message is grouped. Defaults to 'message'.\n    \"\"\"\n    session_flashes = session.setdefault('_flashes', [])\n    session_flashes.append((flash_category, message))\n",
+    "gold_doc_file": "src/flask/helpers.py",
+    "gold_doc_lines": [
+      312,
+      315
+    ],
+    "gold_doc_text": ":param category: The category under which message is grouped. Defaults to 'message'.",
+    "gold_doc_kind": "docstring",
+    "label": "DRIFT",
+    "mutation_type": "param_renamed",
+    "expected_fact": "flash_category",
+    "split": "dev",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-015",
+    "repo": "pallets/flask",
+    "symbol_name": "flash",
+    "file": "src/flask/helpers.py",
+    "line_range": [
+      310,
+      335
+    ],
+    "old_code": "def flash(message: str, category: str = 'message') -> None:\n    \"\"\"Flashes a message to the next request.\n    :param message: The message text to be flashed.\n    :param category: The category under which message is grouped. Defaults to 'message'.\n    \"\"\"\n    session_flashes = session.setdefault('_flashes', [])\n    session_flashes.append((category, message))\n",
+    "new_code": "def flash(message: str, category: str = 'message') -> None:\n    \"\"\"Flashes a message to the next request.\n    :param message: The message text to be flashed.\n    :param category: The category under which message is grouped. Defaults to 'message'.\n    \"\"\"\n    flashes_list = session.setdefault('_flashes', [])\n    flashes_list.append((category, message))\n",
+    "gold_doc_file": "src/flask/helpers.py",
+    "gold_doc_lines": [
+      312,
+      315
+    ],
+    "gold_doc_text": ":param category: The category under which message is grouped. Defaults to 'message'.",
+    "gold_doc_kind": "docstring",
+    "label": "NO_DRIFT",
+    "mutation_type": "local_rename",
+    "expected_fact": null,
+    "split": "dev",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-016",
+    "repo": "pallets/flask",
+    "symbol_name": "flash",
+    "file": "src/flask/helpers.py",
+    "line_range": [
+      310,
+      335
+    ],
+    "old_code": "def flash(message: str, category: str = 'message') -> None:\n    \"\"\"Flashes a message to the next request.\n    :param message: The message text to be flashed.\n    :param category: The category under which message is grouped. Defaults to 'message'.\n    \"\"\"\n    session_flashes = session.setdefault('_flashes', [])\n    session_flashes.append((category, message))\n",
+    "new_code": "def flash(message: str, category: str = 'message') -> None:\n    # Refactored for performance and internal clarity\n    \"\"\"Flashes a message to the next request.\n    :param message: The message text to be flashed.\n    :param category: The category under which message is grouped. Defaults to 'message'.\n    \"\"\"\n    session_flashes = session.setdefault('_flashes', [])\n    session_flashes.append((category, message))\n",
+    "gold_doc_file": "src/flask/helpers.py",
+    "gold_doc_lines": [
+      312,
+      315
+    ],
+    "gold_doc_text": ":param category: The category under which message is grouped. Defaults to 'message'.",
+    "gold_doc_kind": "docstring",
+    "label": "NO_DRIFT",
+    "mutation_type": "comment_whitespace",
+    "expected_fact": null,
+    "split": "test",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-017",
+    "repo": "pallets/flask",
+    "symbol_name": "make_response",
+    "file": "src/flask/helpers.py",
+    "line_range": [
+      140,
+      170
+    ],
+    "old_code": "def make_response(*args):\n    \"\"\"Converts the return value from a view function to a response object.\n    If status_code is omitted, it defaults to 200 OK.\n    \"\"\"\n    status_code = 200\n    if not args:\n        raise TypeError('make_response requires at least one argument')\n    return {'body': args[0], 'status': status_code}\n",
+    "new_code": "def make_response(*args):\n    \"\"\"Converts the return value from a view function to a response object.\n    If status_code is omitted, it defaults to 204 OK.\n    \"\"\"\n    status_code = 200\n    if not args:\n        raise TypeError('make_response requires at least one argument')\n    return {'body': args[0], 'status': status_code}\n",
+    "gold_doc_file": "docs/quickstart.rst",
+    "gold_doc_lines": [
+      80,
+      84
+    ],
+    "gold_doc_text": "View responses automatically default to HTTP status_code 200 when not supplied.",
+    "gold_doc_kind": "doc_file",
+    "label": "DRIFT",
+    "mutation_type": "constant_changed",
+    "expected_fact": "204",
+    "split": "test",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-018",
+    "repo": "pallets/flask",
+    "symbol_name": "make_response",
+    "file": "src/flask/helpers.py",
+    "line_range": [
+      140,
+      170
+    ],
+    "old_code": "def make_response(*args):\n    \"\"\"Converts the return value from a view function to a response object.\n    If status_code is omitted, it defaults to 200 OK.\n    \"\"\"\n    status_code = 200\n    if not args:\n        raise TypeError('make_response requires at least one argument')\n    return {'body': args[0], 'status': status_code}\n",
+    "new_code": "def make_response(*args):\n    \"\"\"Converts the return value from a view function to a response object.\n    If status_code is omitted, it defaults to 200 OK.\n    \"\"\"\n    status_code = 200\n    if not args:\n        raise ValueError('make_response requires at least one argument')\n    return {'body': args[0], 'status': status_code}\n",
+    "gold_doc_file": "docs/quickstart.rst",
+    "gold_doc_lines": [
+      80,
+      84
+    ],
+    "gold_doc_text": "View responses automatically default to HTTP status_code 200 when not supplied.",
+    "gold_doc_kind": "doc_file",
+    "label": "DRIFT",
+    "mutation_type": "exception_changed",
+    "expected_fact": "ValueError",
+    "split": "test",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-019",
+    "repo": "pallets/flask",
+    "symbol_name": "make_response",
+    "file": "src/flask/helpers.py",
+    "line_range": [
+      140,
+      170
+    ],
+    "old_code": "def make_response(*args):\n    \"\"\"Converts the return value from a view function to a response object.\n    If status_code is omitted, it defaults to 200 OK.\n    \"\"\"\n    status_code = 200\n    if not args:\n        raise TypeError('make_response requires at least one argument')\n    return {'body': args[0], 'status': status_code}\n",
+    "new_code": "def make_response(*args):\n    # Refactored for performance and internal clarity\n    \"\"\"Converts the return value from a view function to a response object.\n    If status_code is omitted, it defaults to 200 OK.\n    \"\"\"\n    status_code = 200\n    if not args:\n        raise TypeError('make_response requires at least one argument')\n    return {'body': args[0], 'status': status_code}\n",
+    "gold_doc_file": "docs/quickstart.rst",
+    "gold_doc_lines": [
+      80,
+      84
+    ],
+    "gold_doc_text": "View responses automatically default to HTTP status_code 200 when not supplied.",
+    "gold_doc_kind": "doc_file",
+    "label": "NO_DRIFT",
+    "mutation_type": "comment_whitespace",
+    "expected_fact": null,
+    "split": "dev",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-020",
+    "repo": "pallets/flask",
+    "symbol_name": "make_response",
+    "file": "src/flask/helpers.py",
+    "line_range": [
+      140,
+      170
+    ],
+    "old_code": "def make_response(*args):\n    \"\"\"Converts the return value from a view function to a response object.\n    If status_code is omitted, it defaults to 200 OK.\n    \"\"\"\n    status_code = 200\n    if not args:\n        raise TypeError('make_response requires at least one argument')\n    return {'body': args[0], 'status': status_code}\n",
+    "new_code": "def make_response(*args):\n    \"\"\"Converts the return value from a view function to a response object.\n    If http_status is omitted, it defaults to 200 OK.\n    \"\"\"\n    http_status = 200\n    if not args:\n        raise TypeError('make_response requires at least one argument')\n    return {'body': args[0], 'status': http_status}\n",
+    "gold_doc_file": "docs/quickstart.rst",
+    "gold_doc_lines": [
+      80,
+      84
+    ],
+    "gold_doc_text": "View responses automatically default to HTTP status_code 200 when not supplied.",
+    "gold_doc_kind": "doc_file",
+    "label": "NO_DRIFT",
+    "mutation_type": "local_rename",
+    "expected_fact": null,
+    "split": "test",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-021",
+    "repo": "pallets/flask",
+    "symbol_name": "url_for",
+    "file": "src/flask/helpers.py",
+    "line_range": [
+      410,
+      440
+    ],
+    "old_code": "def url_for(endpoint: str, _external: bool = False, **values) -> str:\n    \"\"\"Generates a URL to the given endpoint with the given values.\n    :param endpoint: The endpoint of the URL.\n    :param _external: If set to True, an absolute URL is generated. Defaults to False.\n    \"\"\"\n    url_path = f'/{endpoint}'\n    if _external:\n        return f'https://example.com{url_path}'\n    return url_path\n",
+    "new_code": "def url_for(endpoint: str, _external: bool = True, **values) -> str:\n    \"\"\"Generates a URL to the given endpoint with the given values.\n    :param endpoint: The endpoint of the URL.\n    :param _external: If set to True, an absolute URL is generated. Defaults to False.\n    \"\"\"\n    url_path = f'/{endpoint}'\n    if _external:\n        return f'https://example.com{url_path}'\n    return url_path\n",
+    "gold_doc_file": "src/flask/helpers.py",
+    "gold_doc_lines": [
+      412,
+      415
+    ],
+    "gold_doc_text": ":param _external: If set to True, an absolute URL is generated. Defaults to False.",
+    "gold_doc_kind": "docstring",
+    "label": "DRIFT",
+    "mutation_type": "default_changed",
+    "expected_fact": "True",
+    "split": "test",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-022",
+    "repo": "pallets/flask",
+    "symbol_name": "url_for",
+    "file": "src/flask/helpers.py",
+    "line_range": [
+      410,
+      440
+    ],
+    "old_code": "def url_for(endpoint: str, _external: bool = False, **values) -> str:\n    \"\"\"Generates a URL to the given endpoint with the given values.\n    :param endpoint: The endpoint of the URL.\n    :param _external: If set to True, an absolute URL is generated. Defaults to False.\n    \"\"\"\n    url_path = f'/{endpoint}'\n    if _external:\n        return f'https://example.com{url_path}'\n    return url_path\n",
+    "new_code": "def url_for(endpoint: str, is_external: bool = False, **values) -> str:\n    \"\"\"Generates a URL to the given endpoint with the given values.\n    :param endpoint: The endpoint of the URL.\n    :param is_external: If set to True, an absolute URL is generated. Defaults to False.\n    \"\"\"\n    url_path = f'/{endpoint}'\n    if is_external:\n        return f'https://example.com{url_path}'\n    return url_path\n",
+    "gold_doc_file": "src/flask/helpers.py",
+    "gold_doc_lines": [
+      412,
+      415
+    ],
+    "gold_doc_text": ":param _external: If set to True, an absolute URL is generated. Defaults to False.",
+    "gold_doc_kind": "docstring",
+    "label": "DRIFT",
+    "mutation_type": "param_renamed",
+    "expected_fact": "is_external",
+    "split": "test",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-023",
+    "repo": "pallets/flask",
+    "symbol_name": "url_for",
+    "file": "src/flask/helpers.py",
+    "line_range": [
+      410,
+      440
+    ],
+    "old_code": "def url_for(endpoint: str, _external: bool = False, **values) -> str:\n    \"\"\"Generates a URL to the given endpoint with the given values.\n    :param endpoint: The endpoint of the URL.\n    :param _external: If set to True, an absolute URL is generated. Defaults to False.\n    \"\"\"\n    url_path = f'/{endpoint}'\n    if _external:\n        return f'https://example.com{url_path}'\n    return url_path\n",
+    "new_code": "def url_for(endpoint: str, _external: bool = False, **values) -> str:\n    \"\"\"Generates a URL to the given endpoint with the given values.\n    :param endpoint: The endpoint of the URL.\n    :param _external: If set to True, an absolute URL is generated. Defaults to False.\n    \"\"\"\n    target_url = f'/{endpoint}'\n    if _external:\n        return f'https://example.com{target_url}'\n    return target_url\n",
+    "gold_doc_file": "src/flask/helpers.py",
+    "gold_doc_lines": [
+      412,
+      415
+    ],
+    "gold_doc_text": ":param _external: If set to True, an absolute URL is generated. Defaults to False.",
+    "gold_doc_kind": "docstring",
+    "label": "NO_DRIFT",
+    "mutation_type": "local_rename",
+    "expected_fact": null,
+    "split": "test",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-024",
+    "repo": "pallets/flask",
+    "symbol_name": "url_for",
+    "file": "src/flask/helpers.py",
+    "line_range": [
+      410,
+      440
+    ],
+    "old_code": "def url_for(endpoint: str, _external: bool = False, **values) -> str:\n    \"\"\"Generates a URL to the given endpoint with the given values.\n    :param endpoint: The endpoint of the URL.\n    :param _external: If set to True, an absolute URL is generated. Defaults to False.\n    \"\"\"\n    url_path = f'/{endpoint}'\n    if _external:\n        return f'https://example.com{url_path}'\n    return url_path\n",
+    "new_code": "def url_for(endpoint: str, _external: bool = False, **values) -> str:\n    # Refactored for performance and internal clarity\n    \"\"\"Generates a URL to the given endpoint with the given values.\n    :param endpoint: The endpoint of the URL.\n    :param _external: If set to True, an absolute URL is generated. Defaults to False.\n    \"\"\"\n    url_path = f'/{endpoint}'\n    if _external:\n        return f'https://example.com{url_path}'\n    return url_path\n",
+    "gold_doc_file": "src/flask/helpers.py",
+    "gold_doc_lines": [
+      412,
+      415
+    ],
+    "gold_doc_text": ":param _external: If set to True, an absolute URL is generated. Defaults to False.",
+    "gold_doc_kind": "docstring",
+    "label": "NO_DRIFT",
+    "mutation_type": "comment_whitespace",
+    "expected_fact": null,
+    "split": "test",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-025",
+    "repo": "pallets/flask",
+    "symbol_name": "select_jinja_autoescape",
+    "file": "src/flask/templating.py",
+    "line_range": [
+      85,
+      110
+    ],
+    "old_code": "def select_jinja_autoescape(filename: str, default: bool = True) -> bool:\n    \"\"\"Returns True if the given filename should be autoescaped in Jinja templates.\n    Defaults to True for html and xml extensions.\n    \"\"\"\n    if filename is None:\n        return default\n    return filename.endswith(('.html', '.htm', '.xml'))\n",
+    "new_code": "def select_jinja_autoescape(filename: str, default: bool = False) -> bool:\n    \"\"\"Returns True if the given filename should be autoescaped in Jinja templates.\n    Defaults to True for html and xml extensions.\n    \"\"\"\n    if filename is None:\n        return default\n    return filename.endswith(('.html', '.htm', '.xml'))\n",
+    "gold_doc_file": "docs/templating.rst",
+    "gold_doc_lines": [
+      30,
+      34
+    ],
+    "gold_doc_text": "Autoescaping default is True for standard template files.",
+    "gold_doc_kind": "doc_file",
+    "label": "DRIFT",
+    "mutation_type": "default_changed",
+    "expected_fact": "False",
+    "split": "dev",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-026",
+    "repo": "pallets/flask",
+    "symbol_name": "select_jinja_autoescape",
+    "file": "src/flask/templating.py",
+    "line_range": [
+      85,
+      110
+    ],
+    "old_code": "def select_jinja_autoescape(filename: str, default: bool = True) -> bool:\n    \"\"\"Returns True if the given filename should be autoescaped in Jinja templates.\n    Defaults to True for html and xml extensions.\n    \"\"\"\n    if filename is None:\n        return default\n    return filename.endswith(('.html', '.htm', '.xml'))\n",
+    "new_code": "def select_jinja_autoescape(filename: str, fallback_autoescape: bool = True) -> bool:\n    \"\"\"Returns True if the given filename should be autoescaped in Jinja templates.\n    Defaults to True for html and xml extensions.\n    \"\"\"\n    if filename is None:\n        return fallback_autoescape\n    return filename.endswith(('.html', '.htm', '.xml'))\n",
+    "gold_doc_file": "docs/templating.rst",
+    "gold_doc_lines": [
+      30,
+      34
+    ],
+    "gold_doc_text": "Autoescaping default is True for standard template files.",
+    "gold_doc_kind": "doc_file",
+    "label": "DRIFT",
+    "mutation_type": "param_renamed",
+    "expected_fact": "fallback_autoescape",
+    "split": "dev",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-027",
+    "repo": "pallets/flask",
+    "symbol_name": "select_jinja_autoescape",
+    "file": "src/flask/templating.py",
+    "line_range": [
+      85,
+      110
+    ],
+    "old_code": "def select_jinja_autoescape(filename: str, default: bool = True) -> bool:\n    \"\"\"Returns True if the given filename should be autoescaped in Jinja templates.\n    Defaults to True for html and xml extensions.\n    \"\"\"\n    if filename is None:\n        return default\n    return filename.endswith(('.html', '.htm', '.xml'))\n",
+    "new_code": "def select_jinja_autoescape(filename: str, default: bool = True) -> bool:\n    # Refactored for performance and internal clarity\n    \"\"\"Returns True if the given filename should be autoescaped in Jinja templates.\n    Defaults to True for html and xml extensions.\n    \"\"\"\n    if filename is None:\n        return default\n    return filename.endswith(('.html', '.htm', '.xml'))\n",
+    "gold_doc_file": "docs/templating.rst",
+    "gold_doc_lines": [
+      30,
+      34
+    ],
+    "gold_doc_text": "Autoescaping default is True for standard template files.",
+    "gold_doc_kind": "doc_file",
+    "label": "NO_DRIFT",
+    "mutation_type": "comment_whitespace",
+    "expected_fact": null,
+    "split": "test",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-028",
+    "repo": "pallets/flask",
+    "symbol_name": "select_jinja_autoescape",
+    "file": "src/flask/templating.py",
+    "line_range": [
+      85,
+      110
+    ],
+    "old_code": "def select_jinja_autoescape(filename: str, default: bool = True) -> bool:\n    \"\"\"Returns True if the given filename should be autoescaped in Jinja templates.\n    Defaults to True for html and xml extensions.\n    \"\"\"\n    if filename is None:\n        return default\n    return filename.endswith(('.html', '.htm', '.xml'))\n",
+    "new_code": "def select_jinja_autoescape(filename: str, default: bool = True) -> bool:\n    _escape_flag = True\n    \"\"\"Returns True if the given filename should be autoescaped in Jinja templates.\n    Defaults to True for html and xml extensions.\n    \"\"\"\n    if filename is None:\n        return default\n    return filename.endswith(('.html', '.htm', '.xml'))\n",
+    "gold_doc_file": "docs/templating.rst",
+    "gold_doc_lines": [
+      30,
+      34
+    ],
+    "gold_doc_text": "Autoescaping default is True for standard template files.",
+    "gold_doc_kind": "doc_file",
+    "label": "NO_DRIFT",
+    "mutation_type": "temp_variable",
+    "expected_fact": null,
+    "split": "dev",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-029",
+    "repo": "pallets/flask",
+    "symbol_name": "get_flashed_messages",
+    "file": "src/flask/helpers.py",
+    "line_range": [
+      350,
+      380
+    ],
+    "old_code": "def get_flashed_messages(with_categories: bool = False, category_filter: tuple = ()): \n    \"\"\"Pulls all flashed messages from the session and returns them.\n    :param with_categories: set to True to also receive categories. Defaults to False.\n    \"\"\"\n    flashes = session.pop('_flashes', [])\n    if with_categories:\n        return flashes\n    return [msg for cat, msg in flashes]\n",
+    "new_code": "def get_flashed_messages(with_categories: bool = True, category_filter: tuple = ()): \n    \"\"\"Pulls all flashed messages from the session and returns them.\n    :param with_categories: set to True to also receive categories. Defaults to False.\n    \"\"\"\n    flashes = session.pop('_flashes', [])\n    if with_categories:\n        return flashes\n    return [msg for cat, msg in flashes]\n",
+    "gold_doc_file": "src/flask/helpers.py",
+    "gold_doc_lines": [
+      352,
+      354
+    ],
+    "gold_doc_text": ":param with_categories: set to True to also receive categories. Defaults to False.",
+    "gold_doc_kind": "docstring",
+    "label": "DRIFT",
+    "mutation_type": "default_changed",
+    "expected_fact": "True",
+    "split": "dev",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-030",
+    "repo": "pallets/flask",
+    "symbol_name": "get_flashed_messages",
+    "file": "src/flask/helpers.py",
+    "line_range": [
+      350,
+      380
+    ],
+    "old_code": "def get_flashed_messages(with_categories: bool = False, category_filter: tuple = ()): \n    \"\"\"Pulls all flashed messages from the session and returns them.\n    :param with_categories: set to True to also receive categories. Defaults to False.\n    \"\"\"\n    flashes = session.pop('_flashes', [])\n    if with_categories:\n        return flashes\n    return [msg for cat, msg in flashes]\n",
+    "new_code": "def get_flashed_messages(include_categories: bool = False, category_filter: tuple = ()): \n    \"\"\"Pulls all flashed messages from the session and returns them.\n    :param include_categories: set to True to also receive categories. Defaults to False.\n    \"\"\"\n    flashes = session.pop('_flashes', [])\n    if include_categories:\n        return flashes\n    return [msg for cat, msg in flashes]\n",
+    "gold_doc_file": "src/flask/helpers.py",
+    "gold_doc_lines": [
+      352,
+      354
+    ],
+    "gold_doc_text": ":param with_categories: set to True to also receive categories. Defaults to False.",
+    "gold_doc_kind": "docstring",
+    "label": "DRIFT",
+    "mutation_type": "param_renamed",
+    "expected_fact": "include_categories",
+    "split": "test",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-031",
+    "repo": "pallets/flask",
+    "symbol_name": "get_flashed_messages",
+    "file": "src/flask/helpers.py",
+    "line_range": [
+      350,
+      380
+    ],
+    "old_code": "def get_flashed_messages(with_categories: bool = False, category_filter: tuple = ()): \n    \"\"\"Pulls all flashed messages from the session and returns them.\n    :param with_categories: set to True to also receive categories. Defaults to False.\n    \"\"\"\n    flashes = session.pop('_flashes', [])\n    if with_categories:\n        return flashes\n    return [msg for cat, msg in flashes]\n",
+    "new_code": "def get_flashed_messages(with_categories: bool = False, category_filter: tuple = ()): \n    \"\"\"Pulls all flashed messages from the session and returns them.\n    :param with_categories: set to True to also receive categories. Defaults to False.\n    \"\"\"\n    cached_flashes = session.pop('_flashes', [])\n    if with_categories:\n        return cached_flashes\n    return [msg for cat, msg in cached_flashes]\n",
+    "gold_doc_file": "src/flask/helpers.py",
+    "gold_doc_lines": [
+      352,
+      354
+    ],
+    "gold_doc_text": ":param with_categories: set to True to also receive categories. Defaults to False.",
+    "gold_doc_kind": "docstring",
+    "label": "NO_DRIFT",
+    "mutation_type": "local_rename",
+    "expected_fact": null,
+    "split": "test",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  },
+  {
+    "case_id": "CASE-032",
+    "repo": "pallets/flask",
+    "symbol_name": "get_flashed_messages",
+    "file": "src/flask/helpers.py",
+    "line_range": [
+      350,
+      380
+    ],
+    "old_code": "def get_flashed_messages(with_categories: bool = False, category_filter: tuple = ()): \n    \"\"\"Pulls all flashed messages from the session and returns them.\n    :param with_categories: set to True to also receive categories. Defaults to False.\n    \"\"\"\n    flashes = session.pop('_flashes', [])\n    if with_categories:\n        return flashes\n    return [msg for cat, msg in flashes]\n",
+    "new_code": "def get_flashed_messages(with_categories: bool = False, category_filter: tuple = ()): \n    # Refactored for performance and internal clarity\n    \"\"\"Pulls all flashed messages from the session and returns them.\n    :param with_categories: set to True to also receive categories. Defaults to False.\n    \"\"\"\n    flashes = session.pop('_flashes', [])\n    if with_categories:\n        return flashes\n    return [msg for cat, msg in flashes]\n",
+    "gold_doc_file": "src/flask/helpers.py",
+    "gold_doc_lines": [
+      352,
+      354
+    ],
+    "gold_doc_text": ":param with_categories: set to True to also receive categories. Defaults to False.",
+    "gold_doc_kind": "docstring",
+    "label": "NO_DRIFT",
+    "mutation_type": "comment_whitespace",
+    "expected_fact": null,
+    "split": "dev",
+    "verified_by": [
+      "Student_1",
+      "Student_2"
+    ]
+  }
+]

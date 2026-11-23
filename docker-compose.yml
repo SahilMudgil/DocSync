@@ -1,6 +1,9 @@
 version: '3.8'
 
 services:
+  # ============================================================================
+  # Container 1: DocSync Core Application & Interactive Dashboard
+  # ============================================================================
   docsync-app:
     build:
       context: .
@@ -11,7 +14,7 @@ services:
       - "8501:8501"
     environment:
       - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}
-      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://ollama:11434}
       - STREAMLIT_SERVER_PORT=8501
       - STREAMLIT_SERVER_ADDRESS=0.0.0.0
     volumes:
@@ -25,3 +28,20 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+
+  # ============================================================================
+  # Container 2: Local AI Model Inference Server (Ollama / DeepSeek-Coder)
+  # (Can run locally, or be offloaded to dedicated AWS EC2 Cloud Node)
+  # ============================================================================
+  ollama:
+    image: ollama/ollama:latest
+    container_name: docsync-ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+
+volumes:
+  ollama_models:
+
