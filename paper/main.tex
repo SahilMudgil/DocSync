@@ -2,6 +2,8 @@
 \usepackage[a4paper,margin=1in]{geometry}
 \usepackage{times,graphicx,amsmath,booktabs,cite,url}
 \usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
 
 \begin{document}
 
@@ -20,7 +22,7 @@ Software documentation regularly diverges from source code as developers modify 
 Abstract syntax trees, continuous integration, documentation drift, large language models, retrieval-augmented generation, software maintenance.
 \end{IEEEkeywords}
 
-\noindent\textbf{Overleaf Project Link:} \url{https://www.overleaf.com/project/YOUR_OVERLEAF_PROJECT_ID}
+\noindent\textbf{Overleaf Project Link:} \url{https://www.overleaf.com/project/6b048820f198011de6d466f9}
 
 \noindent\textbf{Git Repository Link:} \url{https://github.com/SahilMudgil/DocSync}
 
@@ -64,12 +66,12 @@ To mitigate LLM hallucinations and scale across large repositories, Retrieval-Au
 
 Table~\ref{tab:related_work} provides a comparative summary of prominent research efforts in this domain, contrasting their underlying methods, evaluation datasets, limitations, and direct relevance to DocSync.
 
-\begin{table*}[t]
+\begin{table}[t]
 \centering
 \caption{Systematic Comparison of Related Literature in Code Documentation Synchronization}
 \label{tab:related_work}
-\scriptsize
-\begin{tabular}{p{2.2cm}p{2.3cm}p{2.3cm}p{1.8cm}p{2.4cm}p{2.5cm}p{2.3cm}}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{p{2.6cm}p{2.8cm}p{2.8cm}p{2.2cm}p{3.0cm}p{3.2cm}p{3.0cm}}
 \toprule
 \textbf{Study} & \textbf{Core Problem} & \textbf{Methodology} & \textbf{Evaluation Dataset} & \textbf{Key Results} & \textbf{Primary Limitations} & \textbf{Relevance to DocSync} \\
 \midrule
@@ -85,8 +87,9 @@ Zhang et al.~\cite{zhang2024review} (ASE 2024) & Multi-modal automated pull requ
 \addlinespace
 \textbf{DocSync (Our Work)} & \textbf{End-to-end CI drift detection and self-healing} & \textbf{AST Gating + Hybrid RRF + Guardrailed LLM} & \textbf{32 verified Pallets/Flask benchmark commits} & \textbf{$F_1 = 0.94$; 83.9\% token reduction; 0.62s latency} & \textbf{Scoped to Python source and Markdown/RST docs} & \textbf{Unified framework with full CI/CD \& UI integration} \\
 \bottomrule
-\end{tabular}
-\end{table*}
+\end{tabular}%
+}
+\end{table}
 
 \section{Background and Problem Formulation}
 To formally reason about documentation drift, we define the mathematical abstractions and problem boundaries governing code and documentation evolution in continuous integration.
@@ -126,36 +129,46 @@ We establish the following scope boundaries:
     \item \textbf{Language Scope:} Source code parsing focuses on Python ($3.8+$), leveraging Python's standard `ast` module.
     \item \textbf{Documentation Formats:} External documentation supports Markdown (`.md`) and reStructuredText (`.rst`), while internal documentation targets docstrings formatted in Google, NumPy, or Sphinx conventions.
     \item \textbf{Out of Scope:} Binary assets, auto-generated API stubs (e.g., Swagger UI outputs), and external third-party wiki portals hosted outside the git repository are excluded from analysis.
+\end{enumerate}
 
 \section{Proposed Methodology}
 The DocSync architecture operates as an automated multi-stage pipeline integrated into developer workflows. Fig.~\ref{fig:architecture} illustrates the five sequential phases of the framework: Git Change Ingestion and AST Contract Gating, Candidate Documentation Indexing, Hybrid RRF Retrieval, Evidence-Grounded LLM Judgment, and Self-Healing Remediation.
 
-\begin{figure*}[t]
+\begin{figure}[t]
 \centering
-\fbox{
-\begin{minipage}{0.96\textwidth}
-\centering
-\vspace{0.3cm}
-\textbf{\large DocSync Architectural Pipeline}\\[0.2cm]
-\begin{tabular}{ccccc}
-\fbox{\parbox{2.8cm}{\centering \textbf{Stage 1: Git Ingest}\\[0.1cm]\scriptsize Commit Diff $\Delta C$\\AST Contract Gating\\Drop Refactor Noise}} 
-& $\xrightarrow{\Delta S_{\text{contract}}}$ &
-\fbox{\parbox{3.1cm}{\centering \textbf{Stage 2: Hybrid RAG}\\[0.1cm]\scriptsize BM25 Token Matching\\FAISS Dense Vectors\\Reciprocal Rank Fusion}} 
-& $\xrightarrow{\text{Top-}K \text{ Docs}}$ &
-\fbox{\parbox{3.1cm}{\centering \textbf{Stage 3: Evidence Ground}\\[0.1cm]\scriptsize Old Signature ($E_1$)\\New Signature ($E_2$)\\Doc Target ($D_1$)}} \\
-\end{tabular}\\[0.3cm]
-$\Downarrow$ \scriptsize Evidence Packet $\{E_1, E_2, D_1, E_3\}$\\[0.2cm]
-\begin{tabular}{ccc}
-\fbox{\parbox{4.5cm}{\centering \textbf{Stage 4: Guardrailed LLM Judge}\\[0.1cm]\scriptsize DeepSeek-Coder / Gemini Flash\\Claim-by-Claim Citation Verification\\Downgrade unverified $\to$ UNCERTAIN}} 
-& $\xrightarrow{\text{DRIFT}}$ &
-\fbox{\parbox{4.5cm}{\centering \textbf{Stage 5: Remediation \& CI Gate}\\[0.1cm]\scriptsize Minimal Unified Diff Repair\\AST Docstring Patcher\\GitHub PR Review Comment}} \\
-\end{tabular}
-\vspace{0.3cm}
-\end{minipage}
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    node distance=1.0cm and 0.8cm,
+    stage/.style={rectangle, rounded corners=3pt, draw=black, thick, fill=gray!10, text width=2.7cm, minimum height=1.6cm, align=center, font=\scriptsize},
+    artifact/.style={rectangle, draw=black, dashed, fill=white, text width=2.5cm, minimum height=0.9cm, align=center, font=\tiny},
+    arrow/.style={-{Stealth[length=2.5mm]}, thick}
+]
+
+% Top Row: Ingestion, AST Gating, Retrieval, LLM Judge, Remediation
+\node[stage] (diff) {\textbf{Stage 1: Git Diff}\\Commit Diff $\Delta C$\\PR Ingestion};
+\node[stage, right=0.8cm of diff] (ast) {\textbf{AST Gating}\\Drop Refactor Noise\\$\sigma(s_{\text{base}}) \neq \sigma(s_{\text{head}})$};
+\node[stage, right=0.8cm of ast] (rrf) {\textbf{Stage 2: Hybrid RAG}\\BM25 + FAISS\\Reciprocal Rank Fusion};
+\node[stage, right=0.8cm of rrf] (judge) {\textbf{Stage 3: LLM Judge}\\Evidence Citations\\$\{E_1, E_2, D_1\}$};
+\node[stage, right=0.8cm of judge] (patch) {\textbf{Stage 4: Self-Healing}\\Minimal Unified Diff\\CI PR Review};
+
+% Connections
+\draw[arrow] (diff) -- node[above, font=\tiny] {$\Delta S$} (ast);
+\draw[arrow] (ast) -- node[above, font=\tiny] {$\Delta S_{\text{contract}}$} (rrf);
+\draw[arrow] (rrf) -- node[above, font=\tiny] {Top-$K$ Docs} (judge);
+\draw[arrow] (judge) -- node[above, font=\tiny] {$\text{DRIFT}$} (patch);
+
+% Bypasses and guardrails
+\node[artifact, below=0.6cm of ast] (benign) {Benign Refactoring\\(0 tokens, Terminated)};
+\draw[arrow, dashed] (ast) -- (benign);
+
+\node[artifact, below=0.6cm of judge] (guard) {Guardrail Enforcement\\Unverified $\to$ UNCERTAIN};
+\draw[arrow, dashed] (judge) -- (guard);
+
+\end{tikzpicture}%
 }
-\caption{Architectural overview of the DocSync documentation drift verification and remediation pipeline.}
+\caption{Architectural overview of the DocSync documentation drift verification and self-healing remediation pipeline.}
 \label{fig:architecture}
-\end{figure*}
+\end{figure}
 
 \subsection{Stage 1: AST Contract Gating}
 A primary cause of alert fatigue in developer tools is triggering expensive analyses on benign changes. When a commit modifies a Python file, DocSync executes git diff inspection against the base branch. Instead of treating the raw text diff as model input, DocSync parses both the base version and the head version into Abstract Syntax Trees using Python's native `ast` module.
@@ -295,7 +308,7 @@ Table~\ref{tab:hyperparameters} outlines the execution hyperparameters utilized 
 \centering
 \caption{System Configuration and Experimental Hyperparameters}
 \label{tab:hyperparameters}
-\small
+\resizebox{0.9\columnwidth}{!}{%
 \begin{tabular}{lll}
 \toprule
 \textbf{Parameter} & \textbf{Setting / Value} & \textbf{Description / Justification} \\
@@ -308,20 +321,70 @@ RRF Constant ($\kappa$) & 60 & Standard Reciprocal Rank Fusion smoothing paramet
 Candidate Retrieval ($K$) & 2 (1 External Doc + 1 Docstring) & Constrains context to gold documentation sections \\
 Hardware Platform & AWS EC2 Ubuntu t3.medium / Windows 11 & Production cloud and local dev verification \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 \section{Results and Analysis}
 We structure our empirical findings around the three established research questions.
 
 \subsection{RQ1: Drift Detection Efficacy}
-Table~\ref{tab:main_results} presents the comparative evaluation across all 32 benchmark cases. 
+Fig.~\ref{fig:results_comparison} visually highlights the performance trade-offs across all three evaluated paradigms, while Table~\ref{tab:main_results} presents the quantitative metrics across the 32 benchmark cases.
+
+\begin{figure}[t]
+\centering
+\resizebox{0.85\columnwidth}{!}{%
+\begin{tikzpicture}[
+    font=\small,
+    axis/.style={thick, -{Stealth[length=2.5mm]}}
+]
+% Grid lines & Y-ticks
+\foreach \y/\val in {1.0/0.2, 2.0/0.4, 3.0/0.6, 4.0/0.8, 5.0/1.0} {
+    \draw[gray!25, dashed] (0, \y) -- (9.4, \y);
+    \draw (0.1, \y) -- (-0.1, \y) node[left] {\val};
+}
+
+% Axes
+\draw[axis] (0,0) -- (9.6,0) node[right, font=\scriptsize] {\textbf{Method}};
+\draw[axis] (0,0) -- (0,5.5) node[above, font=\scriptsize] {\textbf{Score}};
+
+% M1: Heuristic (P=1.00 -> 5.0, R=0.72 -> 3.6, F1=0.84 -> 4.2)
+\draw[fill=blue!30, draw=black] (1.0, 0) rectangle (1.7, 5.0) node[above, font=\scriptsize] {1.00};
+\draw[fill=orange!35, draw=black] (1.75, 0) rectangle (2.45, 3.6) node[above, font=\scriptsize] {0.72};
+\draw[fill=green!40, draw=black] (2.5, 0) rectangle (3.2, 4.2) node[above, font=\scriptsize] {0.84};
+\node[below=0.25cm, align=center, font=\scriptsize] at (2.1, 0) {\textbf{M1: Heuristic}\\(AST Regex)};
+
+% M2: Zero-Shot (P=0.76 -> 3.8, R=0.82 -> 4.1, F1=0.79 -> 3.95)
+\draw[fill=blue!30, draw=black] (4.0, 0) rectangle (4.7, 3.8) node[above, font=\scriptsize] {0.76};
+\draw[fill=orange!35, draw=black] (4.75, 0) rectangle (5.45, 4.1) node[above, font=\scriptsize] {0.82};
+\draw[fill=green!40, draw=black] (5.5, 0) rectangle (6.2, 3.95) node[above, font=\scriptsize] {0.79};
+\node[below=0.25cm, align=center, font=\scriptsize] at (5.1, 0) {\textbf{M2: Pure LLM}\\(Zero-Shot)};
+
+% M3: DocSync (P=0.95 -> 4.75, R=0.93 -> 4.65, F1=0.94 -> 4.7)
+\draw[fill=blue!30, draw=black] (7.0, 0) rectangle (7.7, 4.75) node[above, font=\scriptsize] {0.95};
+\draw[fill=orange!35, draw=black] (7.75, 0) rectangle (8.45, 4.65) node[above, font=\scriptsize] {0.93};
+\draw[fill=green!40, draw=black] (8.5, 0) rectangle (9.2, 4.7) node[above, font=\scriptsize] {0.94};
+\node[below=0.25cm, align=center, font=\scriptsize] at (8.1, 0) {\textbf{M3: DocSync}\\(Hybrid RAG)};
+
+% Legend (top centered)
+\draw[fill=blue!30, draw=black] (1.8, 5.8) rectangle (2.2, 6.1);
+\node[right, font=\scriptsize] at (2.2, 5.95) {Precision};
+\draw[fill=orange!35, draw=black] (4.2, 5.8) rectangle (4.6, 6.1);
+\node[right, font=\scriptsize] at (4.6, 5.95) {Recall};
+\draw[fill=green!40, draw=black] (6.5, 5.8) rectangle (6.9, 6.1);
+\node[right, font=\scriptsize] at (6.9, 5.95) {$F_1$ Score};
+
+\end{tikzpicture}%
+}
+\caption{Empirical comparison of Precision, Recall, and $F_1$ score across the three evaluated detection paradigms on the 32-case benchmark.}
+\label{fig:results_comparison}
+\end{figure}
 
 \begin{table}[t]
 \centering
 \caption{Empirical Performance Comparison across Detection Methods on the 32-Case Benchmark}
 \label{tab:main_results}
-\small
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lcccccc}
 \toprule
 \textbf{Method} & \textbf{Precision} & \textbf{Recall} & \textbf{$F_1$ Score} & \textbf{95\% Wilson CI ($F_1$)} & \textbf{Latency (s)} & \textbf{Token Cost} \\
@@ -330,7 +393,8 @@ Table~\ref{tab:main_results} presents the comparative evaluation across all 32 b
 \textbf{M2: Pure LLM (Zero-Shot)} & 0.76 & 0.82 & 0.79 & [0.61, 0.91] & 1.45s & 4,850 \\
 \textbf{M3: DocSync (Hybrid RAG)} & 0.95 & \textbf{0.93} & \textbf{0.94} & \textbf{[0.82, 0.98]} & 0.62s & \textbf{780} \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 As observed in Table~\ref{tab:main_results}, DocSync (M3) achieves the highest overall accuracy, recording an $F_1$ score of 0.94 with 0.95 precision and 0.93 recall. 
@@ -356,7 +420,7 @@ To evaluate the individual contributions of DocSync's pipeline components, we co
 \centering
 \caption{Ablation Analysis of DocSync Pipeline Components}
 \label{tab:ablation}
-\small
+\resizebox{0.88\columnwidth}{!}{%
 \begin{tabular}{lcccc}
 \toprule
 \textbf{Ablation Configuration} & \textbf{Precision} & \textbf{Recall} & \textbf{$F_1$ Score} & \textbf{Token Cost} \\
@@ -367,7 +431,8 @@ w/o Dense Embeddings (BM25 only) & 0.95 & 0.81 & 0.87 & 760 \\
 w/o BM25 Lexical Search (FAISS only) & 0.88 & 0.86 & 0.87 & 810 \\
 w/o Evidence Citation Guardrail & 0.86 & 0.93 & 0.89 & 780 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 The ablation results confirm several key findings:
